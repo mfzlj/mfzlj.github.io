@@ -1,0 +1,181 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.940
+Hi everyone. This is Michael taking over for
+
+00:00:02.940 --> 00:00:08.080
+one as we move into inference and validation with TensorFlow.
+
+00:00:08.870 --> 00:00:12.165
+Now you've trained at TensorFlow network,
+
+00:00:12.165 --> 00:00:14.925
+and you can use it for predictions.
+
+00:00:14.925 --> 00:00:17.685
+This is typically known as inference,
+
+00:00:17.685 --> 00:00:20.910
+a term that's actually borrowed from statistics.
+
+00:00:20.910 --> 00:00:26.880
+However, neural networks have a tendency to perform too well on the training data,
+
+00:00:26.880 --> 00:00:30.870
+and aren't able to generalize to data it hasn't seen before.
+
+00:00:30.870 --> 00:00:33.480
+This is known as overfitting,
+
+00:00:33.480 --> 00:00:38.730
+and it impairs our performance on inference on new datasets.
+
+00:00:38.730 --> 00:00:41.695
+To test for overfitting while training,
+
+00:00:41.695 --> 00:00:46.925
+we measure the performance on data not in the training set called the validation set.
+
+00:00:46.925 --> 00:00:51.290
+We avoid overfitting the regularization techniques such as
+
+00:00:51.290 --> 00:00:57.900
+dropout or early stopping while monitoring the validation performance during training.
+
+00:00:58.310 --> 00:01:00.785
+So here once again,
+
+00:01:00.785 --> 00:01:05.150
+I've imported our different resources, numpy and matplotlib,
+
+00:01:05.150 --> 00:01:07.954
+pyplot, TensorFlow, and TensorFlow datasets,
+
+00:01:07.954 --> 00:01:12.360
+which we'll use with the fashion MS dataset once again.
+
+00:01:13.300 --> 00:01:18.005
+I'll load the Fashion-MNIST dataset here with TensorFlow datasets,
+
+00:01:18.005 --> 00:01:22.270
+except this time we're going to split the data ourselves.
+
+00:01:22.270 --> 00:01:29.050
+So down below, you can see that I put train split 60 and test validation split 20,
+
+00:01:29.050 --> 00:01:33.605
+and that's just saying that we have a training split of 60 percent,
+
+00:01:33.605 --> 00:01:35.955
+a validation split of 20 percent,
+
+00:01:35.955 --> 00:01:39.455
+and a test split of 20 percent.
+
+00:01:39.455 --> 00:01:42.190
+To get started, we'll actually merge
+
+00:01:42.190 --> 00:01:47.350
+our original dataset that was 60,000 examples in the training split,
+
+00:01:47.350 --> 00:01:50.320
+and 10,000 in a test split together,
+
+00:01:50.320 --> 00:01:56.995
+for a total example set of 70,000 Fashion-MNIST images.
+
+00:01:56.995 --> 00:02:03.460
+Here you can see that we took TensorFlow datasets.Split.All.subsplit,
+
+00:02:03.460 --> 00:02:05.830
+showing that we have a 60, 20,
+
+00:02:05.830 --> 00:02:13.010
+20 split, and now when we load our data set with TensorFlow datasets,
+
+00:02:13.010 --> 00:02:19.260
+we'll use those splits here so that we break them up into those 60, 20, 20.
+
+00:02:19.610 --> 00:02:23.765
+Now, if you look at dataset itself,
+
+00:02:23.765 --> 00:02:27.635
+you would actually find that it's made of these three sets,
+
+00:02:27.635 --> 00:02:29.615
+the training set, the validation set,
+
+00:02:29.615 --> 00:02:33.240
+and the test set after we've loaded the data.
+
+00:02:35.290 --> 00:02:42.380
+To validate below, we can check that our dataset is a class of tuple.
+
+00:02:42.380 --> 00:02:44.420
+Again, our training set, validation set,
+
+00:02:44.420 --> 00:02:47.510
+and test set, and those three elements.
+
+00:02:47.510 --> 00:02:55.290
+Again, we can see that there's our Fashion-MNIST shape of 28 by 28 by 1,
+
+00:02:55.290 --> 00:02:58.160
+we'll see the same dataset info down
+
+00:02:58.160 --> 00:03:02.510
+below as it's the same dataset of Fashion-MNIST we used before.
+
+00:03:02.510 --> 00:03:06.740
+The difference as we get into exploring the dataset,
+
+00:03:06.740 --> 00:03:10.955
+is that we can now see there are 42,000 images in the training set,
+
+00:03:10.955 --> 00:03:13.505
+14,000 in the validation set,
+
+00:03:13.505 --> 00:03:16.620
+and 14,000 in the test set.
+
+00:03:19.130 --> 00:03:22.130
+Once again, as we create our pipeline,
+
+00:03:22.130 --> 00:03:26.000
+we'll make sure to normalize our images so that they come out between
+
+00:03:26.000 --> 00:03:30.380
+zero and one for pixel values instead of 0-255.
+
+00:03:30.380 --> 00:03:32.275
+We'll set our batch size,
+
+00:03:32.275 --> 00:03:35.065
+and here we'll shuffle our training data,
+
+00:03:35.065 --> 00:03:40.590
+and then also create batches of the validation sets and testing sets.
+
+00:03:43.340 --> 00:03:45.795
+As we build the model,
+
+00:03:45.795 --> 00:03:48.675
+it's again a fairly simple neural network.
+
+00:03:48.675 --> 00:03:53.550
+We flatten our input from Fashion-MNIST of 28 by 28 by 1,
+
+00:03:53.550 --> 00:03:56.330
+and then we have four fully connected layers,
+
+00:03:56.330 --> 00:03:57.950
+three of which use relu,
+
+00:03:57.950 --> 00:04:03.760
+and then the last of which uses a softmax classifier for our different classes.
+
+00:04:03.760 --> 00:04:07.420
+Again, we compile our model here.
+

@@ -1,0 +1,40 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:04.980
+The last topic I want to cover is how to clear the tf.keras graph.
+
+00:00:04.980 --> 00:00:09.465
+As we can see, our graph contains various sequential models,
+
+00:00:09.465 --> 00:00:13.695
+various flattened layers, and various dense layers.
+
+00:00:13.695 --> 00:00:17.835
+In order to avoid cluttering the graph from old models,
+
+00:00:17.835 --> 00:00:22.785
+we can use the tf.keras.backend.clear_session
+
+00:00:22.785 --> 00:00:27.165
+to delete the current tf.keras graph and create a new one.
+
+00:00:27.165 --> 00:00:29.025
+So let's see it in action.
+
+00:00:29.025 --> 00:00:34.445
+In this example, we're going to clear the graph and then create a sequential model.
+
+00:00:34.445 --> 00:00:40.555
+As we can see, the graph has been cleared and it only contains the model we just created.
+
+00:00:40.555 --> 00:00:42.590
+That's it for this notebook.
+
+00:00:42.590 --> 00:00:44.015
+In the next notebook,
+
+00:00:44.015 --> 00:00:46.920
+we will learn how to train our models.
+

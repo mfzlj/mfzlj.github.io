@@ -1,0 +1,499 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:04.065
+In this notebook, you're going to build and train a neural network
+
+00:00:04.065 --> 00:00:08.130
+that can classify images from the Fashion-MNIST dataset.
+
+00:00:08.130 --> 00:00:11.850
+This dataset consists of grayscale images of articles of
+
+00:00:11.850 --> 00:00:16.680
+clothing where each image is 28 by 28 pixels.
+
+00:00:16.680 --> 00:00:19.815
+We can see examples of them right here.
+
+00:00:19.815 --> 00:00:24.450
+Your goal in this notebook is to build a neural network that can
+
+00:00:24.450 --> 00:00:29.490
+take any of these images and predict the article of clothing shown in the image.
+
+00:00:29.490 --> 00:00:31.215
+So let's get started.
+
+00:00:31.215 --> 00:00:35.765
+As always, we begin by importing the packages we're going to use.
+
+00:00:35.765 --> 00:00:38.645
+These are the same imports we've seen before,
+
+00:00:38.645 --> 00:00:40.355
+so there's nothing new here.
+
+00:00:40.355 --> 00:00:43.330
+Next, we're going to load our dataset.
+
+00:00:43.330 --> 00:00:46.540
+We're going to load the Fashion-MNIST dataset,
+
+00:00:46.540 --> 00:00:49.940
+using TensorFlow datasets, as we've done previously.
+
+00:00:49.940 --> 00:00:55.750
+However, notice that in this case we're not using the split argument.
+
+00:00:55.750 --> 00:01:00.530
+This means that TensorFlow datasets will use the default value for split,
+
+00:01:00.530 --> 00:01:03.325
+which is split equals none.
+
+00:01:03.325 --> 00:01:05.805
+When split equals none,
+
+00:01:05.805 --> 00:01:08.895
+TensorFlow datasets returns a dictionary,
+
+00:01:08.895 --> 00:01:12.500
+with all this splits available for the dataset that you're loading,
+
+00:01:12.500 --> 00:01:17.030
+if we look at the TensorFlow datasets documentation in this link,
+
+00:01:17.030 --> 00:01:21.785
+we will see that the Fashion-MNIST dataset has a train split with
+
+00:01:21.785 --> 00:01:27.085
+60,000 examples and a test split with 10,000 examples.
+
+00:01:27.085 --> 00:01:30.990
+We're going to use the train split as our training set,
+
+00:01:30.990 --> 00:01:34.105
+and the test split us our test set,
+
+00:01:34.105 --> 00:01:38.710
+so that we can test the accuracy of our model after it has been trained.
+
+00:01:38.710 --> 00:01:44.240
+So let's load the Fashion-MNIST dataset and inspect the return values.
+
+00:01:44.240 --> 00:01:47.095
+Let's start by looking at dataset.
+
+00:01:47.095 --> 00:01:50.929
+As we can see, dataset is indeed a dictionary,
+
+00:01:50.929 --> 00:01:55.970
+and it has the test split and train split in different keys.
+
+00:01:55.970 --> 00:02:00.205
+We can use these keys to only select the data that we want.
+
+00:02:00.205 --> 00:02:02.065
+So here, for example,
+
+00:02:02.065 --> 00:02:07.090
+we're saving only the training data into a variable called training set,
+
+00:02:07.090 --> 00:02:12.815
+and we're only saving the testing data into a variable called test set.
+
+00:02:12.815 --> 00:02:16.470
+Now, let's take a look at dataset_info.
+
+00:02:16.470 --> 00:02:21.490
+Because we have with_info equals true in the load function,
+
+00:02:21.490 --> 00:02:26.775
+TensorFlow datasets will return some information about the dataset we just loaded.
+
+00:02:26.775 --> 00:02:29.970
+It will put that information in dataset_info.
+
+00:02:29.970 --> 00:02:31.710
+So let's take a look at it.
+
+00:02:31.710 --> 00:02:34.190
+If we display dataset_info,
+
+00:02:34.190 --> 00:02:38.725
+we can see all the information that he has about the dataset we just loaded.
+
+00:02:38.725 --> 00:02:43.675
+For example, we can see that the name of our dataset is called Fashion-MNIST.
+
+00:02:43.675 --> 00:02:45.830
+We can also see its version.
+
+00:02:45.830 --> 00:02:50.170
+We can also get some information about the shape of the images in our dataset,
+
+00:02:50.170 --> 00:02:52.525
+the number of classes in our dataset.
+
+00:02:52.525 --> 00:02:58.690
+The total number of examples and the number of examples in the test and training splits,
+
+00:02:58.690 --> 00:03:01.060
+as well as other information.
+
+00:03:01.060 --> 00:03:06.625
+We can access some of the information from dataset_info very easily by using.
+
+00:03:06.625 --> 00:03:10.365
+notation. Let's see some examples.
+
+00:03:10.365 --> 00:03:14.680
+Let's start by trying to get the shape of our images,
+
+00:03:14.680 --> 00:03:17.140
+the number of classes in our dataset,
+
+00:03:17.140 --> 00:03:22.495
+and the number of examples in both the test set and the train set, from dataset_info.
+
+00:03:22.495 --> 00:03:28.100
+To do this, let's first notice that the shape of our images and the number of classes,
+
+00:03:28.100 --> 00:03:31.675
+are both contained in a dictionary called features.
+
+00:03:31.675 --> 00:03:34.850
+Similarly, we notice that the number of
+
+00:03:34.850 --> 00:03:38.660
+examples in our test set and the number of examples in our training set,
+
+00:03:38.660 --> 00:03:41.440
+are contained in a dictionary called splits.
+
+00:03:41.440 --> 00:03:44.180
+The second thing we need to notice is that,
+
+00:03:44.180 --> 00:03:47.405
+our features dictionary has two keys.
+
+00:03:47.405 --> 00:03:49.985
+The first key is called image,
+
+00:03:49.985 --> 00:03:52.870
+and it contains the shape of our images.
+
+00:03:52.870 --> 00:03:55.400
+The second key is called label,
+
+00:03:55.400 --> 00:03:58.780
+and it contains the number of classes in our dataset.
+
+00:03:58.780 --> 00:04:03.605
+Similarly, this splits dictionary contains two keys.
+
+00:04:03.605 --> 00:04:05.960
+The first key is called test,
+
+00:04:05.960 --> 00:04:09.595
+and it contains the number of examples in our testing set.
+
+00:04:09.595 --> 00:04:11.930
+The second key is called trained,
+
+00:04:11.930 --> 00:04:15.350
+and it contains the number of examples in our training set.
+
+00:04:15.350 --> 00:04:18.620
+We now have all the required parameters to
+
+00:04:18.620 --> 00:04:21.755
+get the information that we wanted from dataset_info.
+
+00:04:21.755 --> 00:04:26.730
+For example, to get the shape of for images from dataset_info,
+
+00:04:26.730 --> 00:04:31.105
+we first use.notation to access the features dictionary.
+
+00:04:31.105 --> 00:04:35.285
+Then we access the value inside the image key,
+
+00:04:35.285 --> 00:04:38.900
+and then finally, we use.notation to get the shape.
+
+00:04:38.900 --> 00:04:43.640
+We follow a similar procedure to get the total number of classes from
+
+00:04:43.640 --> 00:04:48.575
+our dataset and the total number of examples in our training set,
+
+00:04:48.575 --> 00:04:52.490
+and the total number of examples in our test set.
+
+00:04:52.490 --> 00:04:54.740
+Here, will display the result,
+
+00:04:54.740 --> 00:04:57.245
+and we can see that this dataset has,
+
+00:04:57.245 --> 00:05:02.605
+10 classes that our images have shaped 28 by 28 by 1,
+
+00:05:02.605 --> 00:05:08.550
+and that we have 10,000 images in the test set and 60,000 images in the training set.
+
+00:05:08.550 --> 00:05:11.880
+Now, let's keep exploring our dataset.
+
+00:05:11.880 --> 00:05:15.455
+As we just saw, our dataset contains 10 classes
+
+00:05:15.455 --> 00:05:19.765
+corresponding to the different articles of clothing shown in the images.
+
+00:05:19.765 --> 00:05:24.220
+Here, we can see a list of the different classes in our dataset.
+
+00:05:24.220 --> 00:05:29.495
+Now, if we look at the corresponding labels of our images in our dataset,
+
+00:05:29.495 --> 00:05:32.885
+we will notice that they are digits from zero to nine,
+
+00:05:32.885 --> 00:05:37.895
+instead of class names like dress, coat or sandal.
+
+00:05:37.895 --> 00:05:40.985
+Therefore, if the label of an image is a three,
+
+00:05:40.985 --> 00:05:44.240
+that means that that image corresponds to a dress.
+
+00:05:44.240 --> 00:05:47.930
+Similarly, if the label of an image is a seven,
+
+00:05:47.930 --> 00:05:51.995
+that means that image corresponds to a sneaker and so on.
+
+00:05:51.995 --> 00:05:55.984
+Since the class names are not included with the dataset,
+
+00:05:55.984 --> 00:05:58.250
+we're going to create them here,
+
+00:05:58.250 --> 00:06:02.705
+so that we can map image labels to class names later on.
+
+00:06:02.705 --> 00:06:07.805
+Finally, let's plot an image from our dataset to see what it looks like.
+
+00:06:07.805 --> 00:06:12.665
+Here, we can see that our image is 28 by 28 pixels,
+
+00:06:12.665 --> 00:06:16.940
+and that the pixel values range from 0-255.
+
+00:06:16.940 --> 00:06:20.885
+We can also see that the label of this image is a seven.
+
+00:06:20.885 --> 00:06:24.635
+If we map this label to a class name.
+
+00:06:24.635 --> 00:06:28.675
+We can see that this image corresponds to a sneaker.
+
+00:06:28.675 --> 00:06:31.085
+Now that we have explored our dataset,
+
+00:06:31.085 --> 00:06:33.215
+we're going to create our pipeline.
+
+00:06:33.215 --> 00:06:36.500
+We're going to use the same pipeline we used before.
+
+00:06:36.500 --> 00:06:41.090
+The only difference is that now we're also creating a pipeline for our test set,
+
+00:06:41.090 --> 00:06:42.620
+as we can see here.
+
+00:06:42.620 --> 00:06:47.899
+I will now leave it up to you to build and train a neural network,
+
+00:06:47.899 --> 00:06:51.995
+that can classify the images from the Fashion-MNIST dataset.
+
+00:06:51.995 --> 00:06:54.650
+In this exercise, you're going to create the model,
+
+00:06:54.650 --> 00:06:57.205
+and in this exercise you're going to train it.
+
+00:06:57.205 --> 00:07:02.780
+Now, it's a good time to pause the video and try out these exercises for yourself,
+
+00:07:02.780 --> 00:07:05.580
+before I show you my solutions.
+
+00:07:07.200 --> 00:07:11.465
+Here is my solution to the first exercise.
+
+00:07:11.465 --> 00:07:16.435
+Here, I've chosen to use a sequential model with these layers.
+
+00:07:16.435 --> 00:07:21.310
+In this exercise, you were free to create any model that you wanted.
+
+00:07:21.310 --> 00:07:24.590
+So it's okay, if your model is not the same as this one.
+
+00:07:24.590 --> 00:07:28.255
+Here is my solution to the second exercise.
+
+00:07:28.255 --> 00:07:32.140
+I begin by getting my model ready for training by using
+
+00:07:32.140 --> 00:07:36.440
+the compile method and using the usual configurations.
+
+00:07:36.440 --> 00:07:40.120
+Then I trained my model using the fit method,
+
+00:07:40.120 --> 00:07:42.550
+and I train it for five epochs.
+
+00:07:42.550 --> 00:07:44.125
+By the end of training,
+
+00:07:44.125 --> 00:07:48.375
+my model has a loss value of 0.2820,
+
+00:07:48.375 --> 00:07:51.830
+and has an accuracy of about 90 percent.
+
+00:07:51.830 --> 00:07:54.050
+Depending on the model that you created,
+
+00:07:54.050 --> 00:07:56.840
+your values for the loss and accuracy,
+
+00:07:56.840 --> 00:07:59.935
+may be higher or lower than the once here.
+
+00:07:59.935 --> 00:08:01.685
+In the previous notebook,
+
+00:08:01.685 --> 00:08:03.920
+we measured the loss and accuracy of
+
+00:08:03.920 --> 00:08:07.400
+our model on a single batch of images of the training set.
+
+00:08:07.400 --> 00:08:12.125
+However, a better measure of the true loss and accuracy of our model,
+
+00:08:12.125 --> 00:08:17.315
+can be performed, if we measure these values on images it didn't see during training.
+
+00:08:17.315 --> 00:08:22.420
+That way, we can know for sure that our model didn't just memorize the training data.
+
+00:08:22.420 --> 00:08:25.125
+That's why we created a test set,
+
+00:08:25.125 --> 00:08:27.345
+at the beginning of this notebook.
+
+00:08:27.345 --> 00:08:30.470
+Here, we're going to measure the loss and accuracy
+
+00:08:30.470 --> 00:08:33.605
+of our model on the entire testing set,
+
+00:08:33.605 --> 00:08:35.660
+not just a single batch.
+
+00:08:35.660 --> 00:08:39.200
+To do this, we're going to pass the testing batches we
+
+00:08:39.200 --> 00:08:42.965
+created with our pipeline through the evaluate method.
+
+00:08:42.965 --> 00:08:46.445
+Since we're using the entire testing set in this case,
+
+00:08:46.445 --> 00:08:50.885
+we do not need to specify the true labels over images as we did before,
+
+00:08:50.885 --> 00:08:55.225
+because TensorFlow will get them automatically from the testing batches.
+
+00:08:55.225 --> 00:08:56.750
+If we run this cell,
+
+00:08:56.750 --> 00:09:02.240
+we can see that we get a loss value on the test set of 0.39,
+
+00:09:02.240 --> 00:09:07.405
+and we achieve an accuracy on the test set of about 86 percent.
+
+00:09:07.405 --> 00:09:13.160
+Notice, that these values are worse than the once we achieved on our training set,
+
+00:09:13.160 --> 00:09:16.360
+during training, as it is often the case.
+
+00:09:16.360 --> 00:09:23.029
+In general, we always expect that the loss and accuracy values obtained on the test set,
+
+00:09:23.029 --> 00:09:26.860
+will be worse than those achieved on the training set during training.
+
+00:09:26.860 --> 00:09:31.535
+Finally, let's use our model to make a prediction on a single image.
+
+00:09:31.535 --> 00:09:33.635
+Now, for the most part,
+
+00:09:33.635 --> 00:09:37.190
+the code we're going to use is going to be exactly the same as
+
+00:09:37.190 --> 00:09:40.610
+the one we've used previously, except that now,
+
+00:09:40.610 --> 00:09:43.820
+we're also grabbing the label of the first image,
+
+00:09:43.820 --> 00:09:49.475
+and we do this because we want to map that label to a class name,
+
+00:09:49.475 --> 00:09:52.385
+and use it as the title of our image,
+
+00:09:52.385 --> 00:09:54.220
+as we can see here.
+
+00:09:54.220 --> 00:09:58.520
+So now, we can compare the true label of our image,
+
+00:09:58.520 --> 00:10:00.875
+which in this case is a shirt,
+
+00:10:00.875 --> 00:10:04.850
+to the predicted label with the highest probability.
+
+00:10:04.850 --> 00:10:11.540
+As we can see, our model is able to correctly classify this image as a shirt. That's it.
+
+00:10:11.540 --> 00:10:13.580
+We've managed to create a model,
+
+00:10:13.580 --> 00:10:17.975
+that can correctly classify the images of the Fashion-MNIST dataset.
+
+00:10:17.975 --> 00:10:22.680
+In the next notebook, we will take a look at inference and validation.
+

@@ -1,0 +1,157 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.900
+Now, the real power of neural networks comes when you stack
+
+00:00:03.900 --> 00:00:08.940
+up these simple neural networks into a multi-layer neural network.
+
+00:00:08.940 --> 00:00:12.465
+Here we see an example of a multi-layer neural network.
+
+00:00:12.465 --> 00:00:18.680
+In this example, this multi-layer neural network has an input layer with three units,
+
+00:00:18.680 --> 00:00:21.125
+a hidden layer with two units,
+
+00:00:21.125 --> 00:00:23.860
+and an output layer with a single unit.
+
+00:00:23.860 --> 00:00:27.650
+In this case, we won't use a weight vector,
+
+00:00:27.650 --> 00:00:31.255
+but instead we'll use a matrix of weights.
+
+00:00:31.255 --> 00:00:36.440
+We can use these weight matrix to calculate the h values of our neural network.
+
+00:00:36.440 --> 00:00:39.815
+For example, to get the h_1 value,
+
+00:00:39.815 --> 00:00:44.795
+we can multiply our input features by the first column of the weight matrix.
+
+00:00:44.795 --> 00:00:47.600
+Similarly, to get the h_2 value,
+
+00:00:47.600 --> 00:00:52.555
+we multiply our input features by the second column of our weight matrix.
+
+00:00:52.555 --> 00:00:59.920
+As before, we can express these operations mathematically by using matrix multiplication.
+
+00:00:59.920 --> 00:01:07.250
+For example, the values of h_1 and h_2 can be calculated as follows.
+
+00:01:07.250 --> 00:01:10.190
+We take a row vector consisting of
+
+00:01:10.190 --> 00:01:14.840
+our input features and we multiply it by our weight matrix.
+
+00:01:14.840 --> 00:01:18.170
+We can then take those values and pass them to
+
+00:01:18.170 --> 00:01:23.605
+the corresponding activation functions to get the output of our network y.
+
+00:01:23.605 --> 00:01:30.405
+Now, let's see how we can create a multi-layer neural network like this one in code.
+
+00:01:30.405 --> 00:01:37.430
+As before, we're going to use tensors with random values to represent our input features,
+
+00:01:37.430 --> 00:01:40.665
+our weights, and our biases.
+
+00:01:40.665 --> 00:01:44.010
+Again, we start by setting the seed to
+
+00:01:44.010 --> 00:01:48.155
+a random number generator so that things are reproducible.
+
+00:01:48.155 --> 00:01:50.990
+Next, we create our input features,
+
+00:01:50.990 --> 00:01:56.075
+which in this case is going to be a tensor with one row and three columns.
+
+00:01:56.075 --> 00:02:01.370
+Next, we're going to specify the number of neurons or units in each of our layers.
+
+00:02:01.370 --> 00:02:07.175
+Our input layer will have the same number of neurons as our input features.
+
+00:02:07.175 --> 00:02:13.535
+Our hidden layer will have two units and our output layer will help just one unit.
+
+00:02:13.535 --> 00:02:16.205
+Next, we create our weights.
+
+00:02:16.205 --> 00:02:18.845
+But now, since our weights are matrices,
+
+00:02:18.845 --> 00:02:24.140
+we need to specify the number of rows and number of columns of our weight matrices.
+
+00:02:24.140 --> 00:02:28.460
+W1 is going to connect the inputs to our hidden layer.
+
+00:02:28.460 --> 00:02:32.630
+So if you have three rows and two columns.
+
+00:02:32.630 --> 00:02:38.285
+Similarly, W2 is going to connect our hidden layer to our output layer,
+
+00:02:38.285 --> 00:02:42.485
+and therefore it should have two rows and one column.
+
+00:02:42.485 --> 00:02:46.670
+Finally, we're going to create the biases that are going to be used to
+
+00:02:46.670 --> 00:02:51.595
+calculate the values of our neurons in the hidden layer and the output layer.
+
+00:02:51.595 --> 00:02:54.980
+This time, the biases are also going to be matrices.
+
+00:02:54.980 --> 00:02:59.605
+So we also need to specify the number of rows and number of columns.
+
+00:02:59.605 --> 00:03:03.725
+B1 is going to be used to calculate the values in the hidden layer.
+
+00:03:03.725 --> 00:03:07.209
+So it should have one row and two columns,
+
+00:03:07.209 --> 00:03:11.975
+and B2 is going to be used to calculate the value in our output layer.
+
+00:03:11.975 --> 00:03:15.550
+So it should have one row and one column.
+
+00:03:15.550 --> 00:03:18.620
+As before, I'm going to leave it up to you to
+
+00:03:18.620 --> 00:03:21.845
+calculate the output of these multi-layer neural network.
+
+00:03:21.845 --> 00:03:24.770
+This is a good time to pause the video and try out
+
+00:03:24.770 --> 00:03:29.040
+this exercise for yourself before I show you the solution.
+
+00:03:29.390 --> 00:03:33.600
+This is my solution to this exercise.
+
+00:03:33.600 --> 00:03:35.525
+If you did everything correctly,
+
+00:03:35.525 --> 00:03:38.130
+you should see this output.
+

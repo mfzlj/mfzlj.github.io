@@ -1,0 +1,364 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.330
+Now, let's get into Transfer Learning with TensorFlow.
+
+00:00:03.330 --> 00:00:08.070
+Transfer learning is an incredibly important topic in deep learning.
+
+00:00:08.070 --> 00:00:10.290
+You'll be able to use pre-trained networks to
+
+00:00:10.290 --> 00:00:13.875
+solve extremely challenging problems in computer vision.
+
+00:00:13.875 --> 00:00:19.825
+In our case, we're going to use a network that was pre-trained on the ImageNet data set.
+
+00:00:19.825 --> 00:00:22.790
+ImageNet is a massive data set with
+
+00:00:22.790 --> 00:00:26.864
+over one million labeled images in a 1,000 categories.
+
+00:00:26.864 --> 00:00:30.650
+As you might guess, these pre-trained networks were trained for a very,
+
+00:00:30.650 --> 00:00:36.810
+very long time to get good at recognizing so many images in so many categories.
+
+00:00:36.810 --> 00:00:42.865
+They work astonishingly well as feature detectors for images they weren't trained on.
+
+00:00:42.865 --> 00:00:46.370
+So here we can use a pre-trained network on
+
+00:00:46.370 --> 00:00:50.555
+images that weren't in that training set and this is known as transfer learning.
+
+00:00:50.555 --> 00:00:53.660
+We'll use this to train a network that can classify
+
+00:00:53.660 --> 00:00:57.870
+our cat and dog photos with near perfect accuracy.
+
+00:00:58.010 --> 00:01:00.370
+Note that with TensorFlow Hub,
+
+00:01:00.370 --> 00:01:05.330
+you can download these pre-trained networks and use them in your applications.
+
+00:01:05.330 --> 00:01:10.825
+So this time around, we'll go back to using TensorFlow data sets for our data.
+
+00:01:10.825 --> 00:01:14.540
+In this case, we've gotten the cats versus dogs data
+
+00:01:14.540 --> 00:01:18.980
+set from TensorFlow data sets and we're going to split it with a 60,
+
+00:01:18.980 --> 00:01:22.950
+20, 20 train, test, and validation split.
+
+00:01:24.890 --> 00:01:28.170
+So here's just a quick look at our data set.
+
+00:01:28.170 --> 00:01:31.160
+You'll notice that we have more images this time of
+
+00:01:31.160 --> 00:01:33.530
+23,000 and you can also see
+
+00:01:33.530 --> 00:01:37.440
+a little bit more information about where some of this data has come from.
+
+00:01:38.770 --> 00:01:41.765
+So we still have two classes,
+
+00:01:41.765 --> 00:01:46.980
+but this time we have our 23,000 images between cats and dogs.
+
+00:01:49.760 --> 00:01:52.850
+As a quick note, if the total number of
+
+00:01:52.850 --> 00:01:56.345
+samples in your data set is not a multiple of 100,
+
+00:01:56.345 --> 00:02:01.225
+then TensorFlow may not evenly distribute the data among subsplits.
+
+00:02:01.225 --> 00:02:03.695
+So in our particular case,
+
+00:02:03.695 --> 00:02:07.970
+we should expect that our data will not be evenly distributed just because we have
+
+00:02:07.970 --> 00:02:16.920
+23,262 images instead of say, 23,200 or 23,300.
+
+00:02:18.370 --> 00:02:23.015
+So there will be some variance from our percentages of 60 percent,
+
+00:02:23.015 --> 00:02:24.920
+20 percent, and 20 percent.
+
+00:02:24.920 --> 00:02:29.095
+This isn't really going to have much of a difference on our training process at all.
+
+00:02:29.095 --> 00:02:33.889
+It's just a quick note because before when we were using MNIST and Fashion-MNIST,
+
+00:02:33.889 --> 00:02:35.825
+we had 70,000 examples,
+
+00:02:35.825 --> 00:02:38.640
+so it was evenly distributed.
+
+00:02:40.420 --> 00:02:43.550
+Again, here's one of our images just to
+
+00:02:43.550 --> 00:02:46.370
+show we haven't really changed our data set coming in.
+
+00:02:46.370 --> 00:02:51.815
+We will again start by creating a pipeline to take in our training examples.
+
+00:02:51.815 --> 00:02:57.725
+So once again, we want to set this to have values from 0-1,
+
+00:02:57.725 --> 00:03:00.785
+as well as the size of 224 by 224,
+
+00:03:00.785 --> 00:03:03.055
+which we'll use with our network.
+
+00:03:03.055 --> 00:03:05.900
+Once again, we'll set up our batches after that,
+
+00:03:05.900 --> 00:03:09.080
+including shuffling our training set and setting
+
+00:03:09.080 --> 00:03:13.390
+them to the batch size for training, validation, and testing.
+
+00:03:13.390 --> 00:03:18.780
+Now, let's look at how TensorFlow Hub makes using these pre-trained models easier.
+
+00:03:18.780 --> 00:03:22.925
+TensorFlow Hub is an online repository of pre-trained models.
+
+00:03:22.925 --> 00:03:25.595
+In addition to complete pre-trained models,
+
+00:03:25.595 --> 00:03:28.565
+such as the 1,000 classes of ImageNet,
+
+00:03:28.565 --> 00:03:32.905
+TensorFlow Hub also has models without the final classification layer.
+
+00:03:32.905 --> 00:03:35.885
+This means that you can just add a single layer,
+
+00:03:35.885 --> 00:03:41.300
+such as our output of two classes to the end of the network.
+
+00:03:41.300 --> 00:03:46.510
+You can follow the link here for TensorFlow Hub if you want to see more available models.
+
+00:03:46.510 --> 00:03:49.370
+In this notebook, we're going to use
+
+00:03:49.370 --> 00:03:52.565
+a network trained on the ImageNet data set called MobileNet.
+
+00:03:52.565 --> 00:03:57.235
+This is a state-of-the-art convolutional neural network developed by Google.
+
+00:03:57.235 --> 00:04:02.030
+MobileNet is also a little smaller than many other networks as it's
+
+00:04:02.030 --> 00:04:07.525
+optimized for use on mobile devices and so it can be a little faster to work with.
+
+00:04:07.525 --> 00:04:12.860
+So here, we're going to use our TensorFlow Hub to
+
+00:04:12.860 --> 00:04:18.990
+download this model of MobileNet without the final classification layer.
+
+00:04:19.760 --> 00:04:23.510
+Note that this function downloads the desired model from
+
+00:04:23.510 --> 00:04:26.390
+our TensorFlow Hub URL and then it's going to
+
+00:04:26.390 --> 00:04:29.120
+wrap it in a Keras layer so that we can integrate it
+
+00:04:29.120 --> 00:04:33.030
+into a tf.keras sequential model later.
+
+00:04:33.340 --> 00:04:38.420
+This model itself is actually going to be the first layer in our sequential model.
+
+00:04:38.420 --> 00:04:42.530
+So we need to make sure that we specify an input shape which
+
+00:04:42.530 --> 00:04:47.570
+is based off our image size of 224 by 224 by 3.
+
+00:04:47.620 --> 00:04:51.545
+It's also important that we freeze the weights and biases
+
+00:04:51.545 --> 00:04:55.280
+in our pre-trained model so that we don't modify them during training.
+
+00:04:55.280 --> 00:05:02.530
+We can do this by setting our model as trainable equals false.
+
+00:05:02.530 --> 00:05:08.660
+Now, let's go ahead and build our model with tf.keras sequential.
+
+00:05:08.660 --> 00:05:12.740
+So we'll feed in our feature extractor here as the first layer,
+
+00:05:12.740 --> 00:05:15.200
+as well as add an output layer with
+
+00:05:15.200 --> 00:05:19.735
+our two classes and a softmax activation function once again.
+
+00:05:19.735 --> 00:05:22.970
+As you can see here in the model summary,
+
+00:05:22.970 --> 00:05:25.640
+this entire pre-trained model is just going to
+
+00:05:25.640 --> 00:05:28.675
+show as a single layer in that model.summary.
+
+00:05:28.675 --> 00:05:30.805
+Now, this time around,
+
+00:05:30.805 --> 00:05:32.750
+we're going to use a GPU for training,
+
+00:05:32.750 --> 00:05:36.755
+especially if you were training a neural network as deep as this one,
+
+00:05:36.755 --> 00:05:40.340
+you would definitely need GPU acceleration.
+
+00:05:40.340 --> 00:05:45.095
+So if you're still using the earlier notebooks in the lesson,
+
+00:05:45.095 --> 00:05:48.395
+make sure you move to the notebooks near the end of the lesson,
+
+00:05:48.395 --> 00:05:53.630
+which are GPU workspace and then you'll be able to select in the bottom-left to
+
+00:05:53.630 --> 00:05:59.580
+enable the GPU or when you load the page it'll allow you to enable the GPU right away.
+
+00:06:00.200 --> 00:06:03.280
+We can also use the tf.test,
+
+00:06:03.280 --> 00:06:09.090
+that is GPU available function to confirm that TensorFlow is using the GPU.
+
+00:06:10.270 --> 00:06:15.785
+Note that on a GPU, linear algebra computations are done in parallel,
+
+00:06:15.785 --> 00:06:20.380
+leading to almost a 100 times increased training speeds.
+
+00:06:20.380 --> 00:06:22.530
+So this can run much,
+
+00:06:22.530 --> 00:06:24.930
+much faster on a GPU.
+
+00:06:24.930 --> 00:06:28.235
+If you have TensorFlow GPU installed,
+
+00:06:28.235 --> 00:06:33.830
+it's going to go ahead and run on a GPU by default without further changes to your code.
+
+00:06:33.830 --> 00:06:39.155
+It's also possible in TensorFlow to train on multiple GPUs,
+
+00:06:39.155 --> 00:06:44.885
+which further decreases training time and allows for distributed training.
+
+00:06:44.885 --> 00:06:48.995
+Note that TensorFlow does use different identifiers for CPUs and GPUs.
+
+00:06:48.995 --> 00:06:56.940
+So you can see the CPU 0 or GPU 0 for the main CPU and GPU on your machine.
+
+00:06:56.980 --> 00:07:01.910
+You can also manually have TensorFlow use different devices if you say
+
+00:07:01.910 --> 00:07:07.470
+with tf device and specify which device you want it to run certain operations on.
+
+00:07:07.630 --> 00:07:11.180
+So as you can see in our example here,
+
+00:07:11.180 --> 00:07:13.370
+when you use that CPU device,
+
+00:07:13.370 --> 00:07:17.165
+that means a and b would be calculated with the CPU.
+
+00:07:17.165 --> 00:07:21.845
+However, because it has a CPU and GPU,
+
+00:07:21.845 --> 00:07:27.810
+that means the matrix multiplication will by default be run on a GPU.
+
+00:07:29.510 --> 00:07:35.030
+Now, I've included a function here where you can actually test the difference in
+
+00:07:35.030 --> 00:07:40.075
+GPU versus CPU execution time and it will go ahead and plot this for you.
+
+00:07:40.075 --> 00:07:42.650
+I'll let you run this on your own time with
+
+00:07:42.650 --> 00:07:45.575
+the GPU in your workspace and see the results.
+
+00:07:45.575 --> 00:07:47.390
+It's really astounding as you get
+
+00:07:47.390 --> 00:07:52.470
+larger and larger matrices what the difference is between CPU and GPU.
+
+00:07:52.600 --> 00:07:56.090
+From here, I'll let you finish training the model.
+
+00:07:56.090 --> 00:07:57.545
+It's the same as before,
+
+00:07:57.545 --> 00:08:01.240
+except now your model will automatically run in a GPU.
+
+00:08:01.240 --> 00:08:05.000
+This time around, instead of being stuck around 50 percent,
+
+00:08:05.000 --> 00:08:09.100
+you'll probably get 95 percent or higher accuracy pretty easily.
+
+00:08:09.100 --> 00:08:15.895
+So go ahead below and train the model to classify the cat and dog images in our data set.
+
+00:08:15.895 --> 00:08:20.285
+Note that you only need a few epochs to get a high accuracy,
+
+00:08:20.285 --> 00:08:23.700
+so you don't need to train for a super, super long time.
+

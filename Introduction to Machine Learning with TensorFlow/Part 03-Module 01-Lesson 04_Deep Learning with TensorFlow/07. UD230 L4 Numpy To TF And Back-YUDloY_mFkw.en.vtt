@@ -1,0 +1,136 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.625
+One of the great features of TensorFlow,
+
+00:00:02.625 --> 00:00:06.989
+is that it allows us to convert NumPy arrays to TensorFlow tensors,
+
+00:00:06.989 --> 00:00:10.425
+and TensorFlow tensors to NumPy arrays very easily.
+
+00:00:10.425 --> 00:00:14.685
+For example, to create a tensor from a NumPy array,
+
+00:00:14.685 --> 00:00:19.035
+we can use the tf.convert_to_tensor function,
+
+00:00:19.035 --> 00:00:22.235
+and to convert a tensor to a NumPy array,
+
+00:00:22.235 --> 00:00:24.825
+we can just use the.numpy method.
+
+00:00:24.825 --> 00:00:26.760
+So let's see some examples.
+
+00:00:26.760 --> 00:00:30.570
+Let's start by creating a random NumPy array a,
+
+00:00:30.570 --> 00:00:33.495
+with four rows and three columns.
+
+00:00:33.495 --> 00:00:36.000
+Now we can see it displayed here.
+
+00:00:36.000 --> 00:00:41.420
+Now we're going to take this NumPy array and convert it to a TensorFlow tensor,
+
+00:00:41.420 --> 00:00:45.755
+by using the tf.convert_to_tensor function.
+
+00:00:45.755 --> 00:00:49.670
+This function takes our NumPy array a
+
+00:00:49.670 --> 00:00:54.245
+and returns a TensorFlow tensor that we are going to save in the variable b,
+
+00:00:54.245 --> 00:00:56.245
+and we can see it here.
+
+00:00:56.245 --> 00:00:59.725
+As we can see, both a and b,
+
+00:00:59.725 --> 00:01:01.264
+have the same values,
+
+00:01:01.264 --> 00:01:03.935
+but the only thing that changes is the type.
+
+00:01:03.935 --> 00:01:06.305
+A is a NumPy array,
+
+00:01:06.305 --> 00:01:09.415
+but b is now a TensorFlow tensor.
+
+00:01:09.415 --> 00:01:13.010
+Now, let's convert our TensorFlow tensor b,
+
+00:01:13.010 --> 00:01:19.235
+back to a NumPy array by using the.numpy method on the beat tensor.
+
+00:01:19.235 --> 00:01:22.840
+This returns a NumPy array and we can see it here.
+
+00:01:22.840 --> 00:01:25.505
+As we can see, the values of c,
+
+00:01:25.505 --> 00:01:28.085
+b, and a are all the same.
+
+00:01:28.085 --> 00:01:31.060
+The only thing that changes is the type between them.
+
+00:01:31.060 --> 00:01:36.410
+It's important to note that when you change a NumPy array to a tensor,
+
+00:01:36.410 --> 00:01:38.870
+or a tensor to a NumPy array,
+
+00:01:38.870 --> 00:01:41.710
+their values remain independent.
+
+00:01:41.710 --> 00:01:45.080
+That means that if you change the values of the tensor,
+
+00:01:45.080 --> 00:01:49.240
+the values of the ndarray will not change and vice versa.
+
+00:01:49.240 --> 00:01:51.090
+Let's see some examples.
+
+00:01:51.090 --> 00:01:56.295
+Let's change our tensor b by multiplying its values by 40.
+
+00:01:56.295 --> 00:01:58.500
+Here we can see the result.
+
+00:01:58.500 --> 00:02:03.775
+Now if we display the values of our original NumPy array a,
+
+00:02:03.775 --> 00:02:09.440
+and the values of the NumPy array c that we created from the b tensor,
+
+00:02:09.440 --> 00:02:12.050
+we can see that the values of
+
+00:02:12.050 --> 00:02:15.905
+these two Numpy arrays remain the same as their original values,
+
+00:02:15.905 --> 00:02:19.660
+even though the values of the tensor flow b have changed.
+
+00:02:19.660 --> 00:02:25.405
+Now, let's change the NumPy array a by adding one to its values.
+
+00:02:25.405 --> 00:02:27.885
+Here we can see the result.
+
+00:02:27.885 --> 00:02:33.245
+If we display the values of our tensor b and a NumPy array c,
+
+00:02:33.245 --> 00:02:38.520
+we can see that they retain the same values they had before.
+

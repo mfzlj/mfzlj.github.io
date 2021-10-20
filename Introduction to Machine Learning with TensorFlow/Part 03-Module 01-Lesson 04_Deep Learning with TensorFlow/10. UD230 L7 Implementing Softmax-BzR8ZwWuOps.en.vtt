@@ -1,0 +1,283 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:05.924
+Before we dive in and start using TensorFlow and carers to build neural networks,
+
+00:00:05.924 --> 00:00:08.640
+let's first try to build a neural network
+
+00:00:08.640 --> 00:00:12.600
+ourselves that can be used with the MNIST data set.
+
+00:00:12.600 --> 00:00:15.660
+To do this, we have to face two issues,
+
+00:00:15.660 --> 00:00:19.110
+the first issue concerns the input to our network.
+
+00:00:19.110 --> 00:00:24.285
+The networks we've built so far are called fully connected or dense networks.
+
+00:00:24.285 --> 00:00:26.970
+That means that each unit or neuron in
+
+00:00:26.970 --> 00:00:30.495
+one layer is connected to each unit in the next layer.
+
+00:00:30.495 --> 00:00:32.640
+The fully connected networks,
+
+00:00:32.640 --> 00:00:36.765
+the input to each layer must be a one dimensional tensor.
+
+00:00:36.765 --> 00:00:40.430
+This poses a problem for us because our images are
+
+00:00:40.430 --> 00:00:44.585
+two-dimensional tensors of size 28 by 28.
+
+00:00:44.585 --> 00:00:48.635
+Therefore, we must convert our two-dimensional images
+
+00:00:48.635 --> 00:00:52.700
+to one-dimensional tensors before they can be fed into our network.
+
+00:00:52.700 --> 00:00:59.510
+Specifically, we need to convert our batch of images that have shaped 64 by 28 by
+
+00:00:59.510 --> 00:01:06.630
+28 by one to a tensor of shape 64 by 784.
+
+00:01:06.630 --> 00:01:12.410
+We get 784 by multiplying 28 by 28.
+
+00:01:12.410 --> 00:01:15.860
+This process is typically called flattening
+
+00:01:15.860 --> 00:01:20.975
+because we're flattening a 2D image into a 1D vector.
+
+00:01:20.975 --> 00:01:25.570
+So now this batch contains 64 images that have been flattened.
+
+00:01:25.570 --> 00:01:32.755
+Each image in this batch has been flattened to a vector that has 784 values.
+
+00:01:32.755 --> 00:01:38.240
+The second issue we have to face has to do with the output of our network.
+
+00:01:38.240 --> 00:01:40.040
+In the previous notebook,
+
+00:01:40.040 --> 00:01:44.120
+you build a neural network that had a single output unit.
+
+00:01:44.120 --> 00:01:46.100
+But now in this case,
+
+00:01:46.100 --> 00:01:49.310
+we need 10 output units because our data set
+
+00:01:49.310 --> 00:01:53.695
+contains 10 labels corresponding to the digits from 0-9.
+
+00:01:53.695 --> 00:01:57.395
+In this exercise, I will leave it up to you to create
+
+00:01:57.395 --> 00:02:03.055
+a neural network that flattens the batches of images and returns 10 outputs.
+
+00:02:03.055 --> 00:02:07.595
+For now, do not apply an activation function to the output layer.
+
+00:02:07.595 --> 00:02:10.145
+Since we'll do that in the next section,
+
+00:02:10.145 --> 00:02:13.040
+this is a good time to pause the video and try out
+
+00:02:13.040 --> 00:02:17.460
+this exercise for yourself before I show you my solution.
+
+00:02:18.110 --> 00:02:22.425
+Here is my solution to this exercise.
+
+00:02:22.425 --> 00:02:25.550
+I start by defining the activation function we're
+
+00:02:25.550 --> 00:02:28.700
+going to use for the units in the hidden layer.
+
+00:02:28.700 --> 00:02:32.780
+Here, I've chosen to use a sigmoid activation function,
+
+00:02:32.780 --> 00:02:35.300
+just like we did in the previous notebook.
+
+00:02:35.300 --> 00:02:39.110
+Next, I proceed to flatten our input images.
+
+00:02:39.110 --> 00:02:42.895
+To do this, I use the tf.reshape function.
+
+00:02:42.895 --> 00:02:46.270
+Given a tensor or a numpy and the array,
+
+00:02:46.270 --> 00:02:48.890
+this operation returns a tensor that has
+
+00:02:48.890 --> 00:02:52.340
+the same values as the given tensor or numpy array,
+
+00:02:52.340 --> 00:02:54.650
+but with the given shape.
+
+00:02:54.650 --> 00:03:02.225
+In our case, images is a numpy array with size of 64 by 28 by 28.
+
+00:03:02.225 --> 00:03:05.300
+Remember that we got images by taking
+
+00:03:05.300 --> 00:03:10.360
+our image batch and converting it to a numpy array and then squeezing it.
+
+00:03:10.360 --> 00:03:13.355
+So we need to convert images,
+
+00:03:13.355 --> 00:03:23.585
+which is a numpy array of shape 64 by 28 by 28 into a tensor that has shape 64 by 784.
+
+00:03:23.585 --> 00:03:28.685
+If you noticed, we need to make sure that the batch size remains the same,
+
+00:03:28.685 --> 00:03:31.430
+which in this case is 64.
+
+00:03:31.430 --> 00:03:35.780
+Therefore, we need to ensure that the first dimension of
+
+00:03:35.780 --> 00:03:41.690
+our new tensor is equal to the first number of the shape tuple of our images array.
+
+00:03:41.690 --> 00:03:45.110
+Now for the second dimension of our new tensor,
+
+00:03:45.110 --> 00:03:48.265
+we're going to use this special value minus one.
+
+00:03:48.265 --> 00:03:52.550
+The minus one value tells the tf.reshape
+
+00:03:52.550 --> 00:03:57.725
+function that we want to flatten the other dimensions of our images array.
+
+00:03:57.725 --> 00:04:02.780
+Here we print the shape of the tensor returned by the tf reshape
+
+00:04:02.780 --> 00:04:09.110
+function to check that he has the correct shape of 64 by 784.
+
+00:04:09.110 --> 00:04:11.554
+Once I flatten my images,
+
+00:04:11.554 --> 00:04:15.785
+I proceed in exactly the same way as we did in the previous notebook.
+
+00:04:15.785 --> 00:04:20.060
+So here I create the random weights and biases for my network,
+
+00:04:20.060 --> 00:04:24.395
+here I calculate the values of the units in the hidden layer,
+
+00:04:24.395 --> 00:04:27.400
+and here I calculate the values of the units in
+
+00:04:27.400 --> 00:04:30.535
+the output layer without the activation function.
+
+00:04:30.535 --> 00:04:33.550
+Finally, I print out the shape of
+
+00:04:33.550 --> 00:04:37.820
+the input and output tensors to make sure they have the right shape.
+
+00:04:37.820 --> 00:04:43.620
+The neural network we just created in the previous exercise outputs 10 values.
+
+00:04:43.620 --> 00:04:47.110
+Ultimately, what we want is to pass an image to
+
+00:04:47.110 --> 00:04:50.815
+our neural network such as this one and get out
+
+00:04:50.815 --> 00:04:54.220
+a probability distribution over the classes that tells
+
+00:04:54.220 --> 00:04:58.195
+us the most likely class or classes the image belongs to.
+
+00:04:58.195 --> 00:05:03.080
+Here we see that the probability for each class is roughly the same.
+
+00:05:03.080 --> 00:05:08.705
+An output like this is typical of a neural network that has not been trained,
+
+00:05:08.705 --> 00:05:11.720
+so the neural network is just guessing.
+
+00:05:11.720 --> 00:05:16.990
+Therefore, it's just giving an equal probability to each of the digits in the image.
+
+00:05:16.990 --> 00:05:20.090
+To get a probability distribution such as
+
+00:05:20.090 --> 00:05:23.360
+this one from the output values of our neural network,
+
+00:05:23.360 --> 00:05:26.405
+we usually use a softmax function,
+
+00:05:26.405 --> 00:05:29.320
+which mathematically looks like this.
+
+00:05:29.320 --> 00:05:34.685
+In this exercise, I'm going to leave it up to you to create a function called
+
+00:05:34.685 --> 00:05:40.880
+softmax that performs the softmax calculation according to this equation.
+
+00:05:40.880 --> 00:05:44.450
+Now is a good time to pause the video and try out
+
+00:05:44.450 --> 00:05:48.510
+this exercise yourself before I show you my solution.
+
+00:05:48.790 --> 00:05:52.730
+Here is my solution to this exercise.
+
+00:05:52.730 --> 00:05:58.010
+Notice that I used tf reduce sum with the keyword arguments x
+
+00:05:58.010 --> 00:06:03.455
+is equals one and keepdims equals true so that the output tensor has the correct shape.
+
+00:06:03.455 --> 00:06:07.505
+Then I apply this softmax activation function
+
+00:06:07.505 --> 00:06:11.125
+through the output values that we got from our previous neural network.
+
+00:06:11.125 --> 00:06:16.625
+Finally, I print out the sum of probabilities for each of the 64 images.
+
+00:06:16.625 --> 00:06:20.540
+The sum of probabilities will be equal to one for all images.
+
+00:06:20.540 --> 00:06:24.585
+So let's check that, as we can see
+
+00:06:24.585 --> 00:06:29.490
+that sum of probabilities for all images sums up to one as it should be.
+

@@ -1,0 +1,244 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:04.620
+We're going to start by creating a single layer neural network,
+
+00:00:04.620 --> 00:00:07.919
+like this one, but with five inputs.
+
+00:00:07.919 --> 00:00:11.250
+To do this, we're going to create tensors with
+
+00:00:11.250 --> 00:00:15.270
+random values to represent our input features,
+
+00:00:15.270 --> 00:00:18.420
+our weights and our bias.
+
+00:00:18.420 --> 00:00:21.870
+We start by setting the seed for
+
+00:00:21.870 --> 00:00:26.085
+a random number generator so that things are reproducible.
+
+00:00:26.085 --> 00:00:31.845
+Then we create our input features which represent the input to our network.
+
+00:00:31.845 --> 00:00:39.950
+We're going to use the function tf.random.normal to create tensors with
+
+00:00:39.950 --> 00:00:42.380
+random values drawn from
+
+00:00:42.380 --> 00:00:47.945
+a normal distribution with a mean of zero and a standard deviation of one.
+
+00:00:47.945 --> 00:00:53.525
+We can specify the shape of the tensor we want to create by using a tuple,
+
+00:00:53.525 --> 00:00:56.030
+where the first number represents the number of
+
+00:00:56.030 --> 00:01:00.545
+rows and the second number represents the number of columns.
+
+00:01:00.545 --> 00:01:01.955
+So in this case,
+
+00:01:01.955 --> 00:01:09.745
+we want our input features to be a two-dimensional tensor with one row and five columns.
+
+00:01:09.745 --> 00:01:14.695
+You can think of this tensor as a row vector that has five elements.
+
+00:01:14.695 --> 00:01:17.135
+For the weights, we're also going to create
+
+00:01:17.135 --> 00:01:21.665
+a two-dimensional tensor with one row and five columns.
+
+00:01:21.665 --> 00:01:25.280
+We then create our single bias value by creating
+
+00:01:25.280 --> 00:01:29.035
+a tensor that has just one row and one column.
+
+00:01:29.035 --> 00:01:32.430
+Finally, we print our features, our weights,
+
+00:01:32.430 --> 00:01:36.450
+and our bias, and we can see the output right here.
+
+00:01:36.450 --> 00:01:40.655
+Now that we have created the input features, the weights,
+
+00:01:40.655 --> 00:01:42.695
+and the bias of our network,
+
+00:01:42.695 --> 00:01:46.580
+we need to specify the activation function we're going to use.
+
+00:01:46.580 --> 00:01:48.320
+In this particular example,
+
+00:01:48.320 --> 00:01:52.255
+we're going to use the sigmoid activation function as we see here,
+
+00:01:52.255 --> 00:01:56.045
+and I'm going to leave it up to you to calculate the output
+
+00:01:56.045 --> 00:02:00.400
+of this single layer neural network, in this exercise.
+
+00:02:00.400 --> 00:02:03.650
+Remember, what you need to do is to
+
+00:02:03.650 --> 00:02:07.985
+multiply the input features by the weights, sum them up,
+
+00:02:07.985 --> 00:02:10.705
+and then add the bias term,
+
+00:02:10.705 --> 00:02:13.580
+then you pass the result through
+
+00:02:13.580 --> 00:02:18.365
+the activation function to get the output of our network, y.
+
+00:02:18.365 --> 00:02:22.280
+Now it's a good time to pause the video and try out
+
+00:02:22.280 --> 00:02:27.060
+this exercise for yourself before I show you the solution.
+
+00:02:27.970 --> 00:02:32.255
+This is my solution to this exercise.
+
+00:02:32.255 --> 00:02:38.890
+Here I'm using tf.multiply to multiply our features with our weights.
+
+00:02:38.890 --> 00:02:45.060
+Then I'm using tf.reduce sum to sum these values up.
+
+00:02:45.060 --> 00:02:50.240
+Then I add the bias term and then I take all that and
+
+00:02:50.240 --> 00:02:55.265
+pass it to the sigmoid activation function to get the output of our network.
+
+00:02:55.265 --> 00:02:57.515
+Finally, I print the output,
+
+00:02:57.515 --> 00:03:00.430
+and this is the value that we get.
+
+00:03:00.430 --> 00:03:05.785
+In this solution, we're performing the element-wise multiplication,
+
+00:03:05.785 --> 00:03:10.450
+and taking the sum in two separate operations.
+
+00:03:10.450 --> 00:03:13.700
+We can do the multiplication and the sum in
+
+00:03:13.700 --> 00:03:17.150
+a single operation if we use matrix multiplication.
+
+00:03:17.150 --> 00:03:21.065
+In general, we always want to use matrix multiplication
+
+00:03:21.065 --> 00:03:25.375
+because it's more efficient and can be accelerated using GPUs.
+
+00:03:25.375 --> 00:03:31.720
+Here we want to do a matrix multiplication between the features and the weights.
+
+00:03:31.720 --> 00:03:37.790
+We can do this in TensorFlow by using the tf.matmul function.
+
+00:03:37.790 --> 00:03:42.245
+However, if we try to do it with the features and weights as they are,
+
+00:03:42.245 --> 00:03:45.515
+we'll get an error as we see here.
+
+00:03:45.515 --> 00:03:49.040
+What's happening here is that our tensors aren't in
+
+00:03:49.040 --> 00:03:52.685
+the correct shapes to perform the matrix multiplication.
+
+00:03:52.685 --> 00:03:55.955
+Remember that for matrix multiplications,
+
+00:03:55.955 --> 00:03:58.700
+the number of columns in the first tensor
+
+00:03:58.700 --> 00:04:02.320
+must equal the number of rows in the second tensor.
+
+00:04:02.320 --> 00:04:08.495
+However, here both our features and weights tensors have the same shape,
+
+00:04:08.495 --> 00:04:11.410
+which is one row and five columns.
+
+00:04:11.410 --> 00:04:13.970
+This means that we need to change the shape of
+
+00:04:13.970 --> 00:04:17.615
+the weights' tensor to get the matrix multiplication to work.
+
+00:04:17.615 --> 00:04:22.820
+However, we can avoid changing the shape of the weights' tensor before we do
+
+00:04:22.820 --> 00:04:26.540
+the matrix multiplication by using the transpose b
+
+00:04:26.540 --> 00:04:31.125
+equals true argument of the tf.matmul function.
+
+00:04:31.125 --> 00:04:33.390
+This argument will transpose
+
+00:04:33.390 --> 00:04:39.019
+the weights' tensor without actually changing the shape of the tensor permanently.
+
+00:04:39.019 --> 00:04:40.910
+So in our case,
+
+00:04:40.910 --> 00:04:44.000
+the transpose b equals true argument,
+
+00:04:44.000 --> 00:04:50.480
+will transpose the weights' tensor and change a shape from 1, 5 to 5,
+
+00:04:50.480 --> 00:04:53.375
+1 just for the multiplication
+
+00:04:53.375 --> 00:04:57.845
+without actually changing the shape of the tensor permanently.
+
+00:04:57.845 --> 00:05:03.350
+As before, I'm going to leave it up to you to calculate the output of this network,
+
+00:05:03.350 --> 00:05:06.530
+but now using matrix multiplication.
+
+00:05:06.530 --> 00:05:10.040
+Now it's a good time to pause the video and try out
+
+00:05:10.040 --> 00:05:13.980
+this exercise yourself before I show you the solution.
+
+00:05:14.560 --> 00:05:18.635
+This is my solution to this exercise.
+
+00:05:18.635 --> 00:05:24.635
+As you can see, I'm using tf.matmul to multiply the features and the weights,
+
+00:05:24.635 --> 00:05:29.160
+and I'm using the argument transpose b equals true.
+

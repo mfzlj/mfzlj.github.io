@@ -1,0 +1,127 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.585
+Now, let's take a minute to see how TensorFlow calculates
+
+00:00:03.585 --> 00:00:07.620
+and keeps track of the gradients needed to perform backpropagation.
+
+00:00:07.620 --> 00:00:15.135
+TensorFlow uses the tf.GradientTape class to record automatic differentiation operations.
+
+00:00:15.135 --> 00:00:18.390
+Automatic differentiation is also known as
+
+00:00:18.390 --> 00:00:22.530
+algorithmic differentiation, or simply autodiff.
+
+00:00:22.530 --> 00:00:26.835
+It's a family of techniques used by computers to efficiently
+
+00:00:26.835 --> 00:00:30.915
+and accurately evaluate derivatives of numeric functions.
+
+00:00:30.915 --> 00:00:32.565
+Let's see an example.
+
+00:00:32.565 --> 00:00:34.215
+In the following code,
+
+00:00:34.215 --> 00:00:39.855
+we're going to set at tensor y to be equal to the square of another tensor x.
+
+00:00:39.855 --> 00:00:44.480
+Then we're going to use df.GradientTape class to
+
+00:00:44.480 --> 00:00:49.630
+calculate the derivative of tensor y with respect to tensor x.
+
+00:00:49.630 --> 00:00:53.175
+The correct answer should yield 2x.
+
+00:00:53.175 --> 00:00:55.910
+So let's check if we get this result.
+
+00:00:55.910 --> 00:00:58.580
+We begin by setting the seed of
+
+00:00:58.580 --> 00:01:02.255
+a random number generator so that things are reproducible.
+
+00:01:02.255 --> 00:01:05.105
+Then we create our tensor x,
+
+00:01:05.105 --> 00:01:10.240
+which is going to be a random tensor with two rows and two columns.
+
+00:01:10.240 --> 00:01:15.170
+Now, the df.GradientTape class is able to
+
+00:01:15.170 --> 00:01:20.430
+calculate derivatives by keeping track of the operations performed on tensors.
+
+00:01:20.430 --> 00:01:26.090
+Therefore, we must tell the tf.GradientTape class to keep track
+
+00:01:26.090 --> 00:01:31.930
+of the operations performed on our tensor x by using the watch method.
+
+00:01:31.930 --> 00:01:34.680
+So from this point forward,
+
+00:01:34.680 --> 00:01:38.060
+the tf.GradientTape class is going to
+
+00:01:38.060 --> 00:01:42.115
+watch all the operations we perform on our tensor x.
+
+00:01:42.115 --> 00:01:48.185
+Then we set tensor y to be equal to the square of our tensor x.
+
+00:01:48.185 --> 00:01:52.250
+Then we take the derivative of our tensor y with
+
+00:01:52.250 --> 00:01:56.545
+respect to our tensor x by using the gradient method.
+
+00:01:56.545 --> 00:02:02.585
+Finally, we want to compare this result to the true value of the derivative,
+
+00:02:02.585 --> 00:02:04.625
+which we know is 2x.
+
+00:02:04.625 --> 00:02:06.740
+If we run this code,
+
+00:02:06.740 --> 00:02:13.420
+we can see that the calculated derivative and the true derivative are exactly the same.
+
+00:02:13.420 --> 00:02:18.905
+In fact, if we take the difference between the calculated and the true derivative,
+
+00:02:18.905 --> 00:02:21.890
+we get a maximum difference of zero,
+
+00:02:21.890 --> 00:02:24.080
+which confirms that they are the same.
+
+00:02:24.080 --> 00:02:27.320
+By default, TensorFlow will automatically watch
+
+00:02:27.320 --> 00:02:32.195
+any trainable variables such as the weights and biases of our models.
+
+00:02:32.195 --> 00:02:35.135
+That's how TensorFlow calculates and keeps track
+
+00:02:35.135 --> 00:02:38.360
+of the gradients needed to perform backpropagation.
+
+00:02:38.360 --> 00:02:39.995
+In the next notebook,
+
+00:02:39.995 --> 00:02:44.640
+we will train a neural network on a slightly more complex dataset.
+

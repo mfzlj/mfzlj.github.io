@@ -1,0 +1,355 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:01.545
+In the previous lesson,
+
+00:00:01.545 --> 00:00:05.280
+you built simple neural networks by creating tensors with
+
+00:00:05.280 --> 00:00:10.124
+random values to represent the network's weights and biases.
+
+00:00:10.124 --> 00:00:13.050
+You can build neural networks this way,
+
+00:00:13.050 --> 00:00:14.445
+but as you can imagine,
+
+00:00:14.445 --> 00:00:17.295
+this can be very cumbersome and difficult to do.
+
+00:00:17.295 --> 00:00:21.660
+Luckily, TensorFlow has a really nice API called Keras
+
+00:00:21.660 --> 00:00:26.340
+that provides us with an easy way to build large neural networks.
+
+00:00:26.340 --> 00:00:31.605
+In this lesson, we will see how to build neural networks with TensorFlow and Keras.
+
+00:00:31.605 --> 00:00:36.465
+As always, we begin by importing the packages we're going to use.
+
+00:00:36.465 --> 00:00:39.955
+Here we're going to install this version of TensorFlow,
+
+00:00:39.955 --> 00:00:44.330
+which is currently the latest version of TensorFlow 2.0.
+
+00:00:44.330 --> 00:00:50.210
+We're also going to be using TensorFlow datasets to load our MNIST data.
+
+00:00:50.210 --> 00:00:55.825
+TensorFlow datasets also uses a package called tqdm.
+
+00:00:55.825 --> 00:01:00.140
+So if you're running this notebook in a Udacity workspace,
+
+00:01:00.140 --> 00:01:07.215
+make sure you run this command to ensure you have the right version of tqdm installed.
+
+00:01:07.215 --> 00:01:11.900
+Next, we import warnings and set filter warnings to ignore,
+
+00:01:11.900 --> 00:01:16.565
+and this is just to prevent many warning messages to be printed on the screen.
+
+00:01:16.565 --> 00:01:21.920
+We're going to be using NumPy for numerical computations and Matplotlib for plotting.
+
+00:01:21.920 --> 00:01:26.600
+Therefore, we're going to include the magic commands matplotlib inline,
+
+00:01:26.600 --> 00:01:28.520
+so we can make plots inline.
+
+00:01:28.520 --> 00:01:31.070
+We're going to configure the back-end figure format to
+
+00:01:31.070 --> 00:01:33.845
+retina to display high resolution images.
+
+00:01:33.845 --> 00:01:35.870
+Here we import TensorFlow,
+
+00:01:35.870 --> 00:01:38.770
+and here we import TensorFlow datasets
+
+00:01:38.770 --> 00:01:42.060
+We're going to disable the progress bar on TensorFlow datasets,
+
+00:01:42.060 --> 00:01:45.115
+and again, this is just to remove clutter on our screen.
+
+00:01:45.115 --> 00:01:50.360
+Next, we import logging and we set the logging level to logging error.
+
+00:01:50.360 --> 00:01:55.205
+Again, this is just to prevent too many warning messages to be printed on our screen.
+
+00:01:55.205 --> 00:01:58.220
+Finally, we print the version of TensorFlow,
+
+00:01:58.220 --> 00:01:59.600
+the version of Keras,
+
+00:01:59.600 --> 00:02:02.150
+and whether we're using a GPU or not.
+
+00:02:02.150 --> 00:02:05.420
+As you can see right now we're not using a GPU,
+
+00:02:05.420 --> 00:02:07.820
+so we're running all the computations on a CPU.
+
+00:02:07.820 --> 00:02:11.360
+We will talk more about GPUs in a later lesson.
+
+00:02:11.360 --> 00:02:14.285
+We're now ready to load our dataset.
+
+00:02:14.285 --> 00:02:18.230
+In this lesson, we're going to be using the MNIST dataset.
+
+00:02:18.230 --> 00:02:24.350
+The MNIST dataset consists of grayscale images of handwritten digits.
+
+00:02:24.350 --> 00:02:28.969
+Each image in this data set is 28 by 28 pixels,
+
+00:02:28.969 --> 00:02:32.090
+and we can see examples of them right here.
+
+00:02:32.090 --> 00:02:36.320
+Our goal in this lesson is to build a neural network that can
+
+00:02:36.320 --> 00:02:41.095
+take any of these images and predict the digit shown in the image.
+
+00:02:41.095 --> 00:02:45.945
+We're going to be using TensorFlow datasets to load our MNIST data.
+
+00:02:45.945 --> 00:02:49.610
+TensorFlow datasets is a repository with
+
+00:02:49.610 --> 00:02:52.295
+a wide variety of datasets to train
+
+00:02:52.295 --> 00:02:55.430
+your machine learning models for many different tasks,
+
+00:02:55.430 --> 00:02:57.555
+ranging from text to video.
+
+00:02:57.555 --> 00:03:01.295
+For a full list of datasets available in TensorFlow datasets,
+
+00:03:01.295 --> 00:03:05.215
+check out the TensorFlow datasets catalog in this link.
+
+00:03:05.215 --> 00:03:11.555
+To load our data from TensorFlow datasets, we use tfds.load.
+
+00:03:11.555 --> 00:03:15.005
+The first argument corresponds to the name of our dataset,
+
+00:03:15.005 --> 00:03:17.405
+which in this case is MNIST.
+
+00:03:17.405 --> 00:03:23.585
+The split argument tells TensorFlow dataset which split of the data to return.
+
+00:03:23.585 --> 00:03:27.215
+Since we're only interested in the training data for now,
+
+00:03:27.215 --> 00:03:32.645
+we set split equal strain so that we only get the training set.
+
+00:03:32.645 --> 00:03:36.980
+The next argument as supervised equals true tells
+
+00:03:36.980 --> 00:03:39.380
+TensorFlow datasets to also return
+
+00:03:39.380 --> 00:03:42.575
+the corresponding labels of the images in our training set.
+
+00:03:42.575 --> 00:03:45.865
+These will be used when we train our neural network.
+
+00:03:45.865 --> 00:03:49.520
+The last argument with info equals true tells
+
+00:03:49.520 --> 00:03:54.155
+TensorFlow datasets to return some information about the dataset we loaded.
+
+00:03:54.155 --> 00:03:56.035
+So in this case,
+
+00:03:56.035 --> 00:04:00.575
+tfds.load will return a training set
+
+00:04:00.575 --> 00:04:05.140
+that contains images and their corresponding labels as tensors.
+
+00:04:05.140 --> 00:04:07.940
+It also returns dataset info,
+
+00:04:07.940 --> 00:04:11.225
+which holds some information about the dataset that we loaded,
+
+00:04:11.225 --> 00:04:14.980
+such as the number of images and the number of classes.
+
+00:04:14.980 --> 00:04:18.530
+Now that we have loaded the training data into training set
+
+00:04:18.530 --> 00:04:22.285
+and loaded dataset information into dataset info,
+
+00:04:22.285 --> 00:04:25.160
+let's get the total number of classes and the total number of
+
+00:04:25.160 --> 00:04:28.375
+images in our training set from our dataset info.
+
+00:04:28.375 --> 00:04:30.860
+Here we get the number of classes and
+
+00:04:30.860 --> 00:04:34.490
+the total number of training examples from dataset info.
+
+00:04:34.490 --> 00:04:37.595
+We won't go into the details of how this works now,
+
+00:04:37.595 --> 00:04:39.850
+we'll cover that in a later lesson.
+
+00:04:39.850 --> 00:04:43.835
+For now we can see that we have a total of 10 classes in our dataset,
+
+00:04:43.835 --> 00:04:47.630
+and there are a total of 60,000 images in our training set.
+
+00:04:47.630 --> 00:04:50.300
+Let's keep exploring our dataset.
+
+00:04:50.300 --> 00:04:53.164
+We can use the training set as an iterator.
+
+00:04:53.164 --> 00:04:57.635
+So that means that we can use a for loop to go through the entire dataset.
+
+00:04:57.635 --> 00:05:00.110
+However, there might be times when you only
+
+00:05:00.110 --> 00:05:02.660
+want to loop through a few images in your dataset.
+
+00:05:02.660 --> 00:05:06.230
+For that, we can use the.take method.
+
+00:05:06.230 --> 00:05:10.895
+The take method only selects the given number of elements from your dataset.
+
+00:05:10.895 --> 00:05:17.270
+For example,.take(1) will only choose one image from your dataset.
+
+00:05:17.270 --> 00:05:19.805
+If we had three instead of one here,
+
+00:05:19.805 --> 00:05:22.765
+then this will take three images from your dataset.
+
+00:05:22.765 --> 00:05:27.860
+As an example, here we use a for loop that only goes through one image in
+
+00:05:27.860 --> 00:05:33.520
+our training set and prints out the dtype and shape of the image and corresponding label.
+
+00:05:33.520 --> 00:05:34.945
+As we can see,
+
+00:05:34.945 --> 00:05:40.570
+the images in our training set have values of dtype, uint8.
+
+00:05:40.570 --> 00:05:44.630
+This means that the pixels in our images are represented by
+
+00:05:44.630 --> 00:05:51.835
+eight bit unsigned integers and can hold values in the range from 0-255.
+
+00:05:51.835 --> 00:05:57.640
+We also see that our images have shape 28 by 28 by 1.
+
+00:05:57.640 --> 00:06:03.195
+On the other hand, the labels of our images have dtype, int64.
+
+00:06:03.195 --> 00:06:07.285
+This means they're 64-bit signed integers.
+
+00:06:07.285 --> 00:06:10.930
+Now let's see what an image in our dataset looks like.
+
+00:06:10.930 --> 00:06:14.885
+In order to plot a single image from our training set,
+
+00:06:14.885 --> 00:06:18.530
+we're again going to use a for loop and we're going to use
+
+00:06:18.530 --> 00:06:22.355
+a take method to only take one image from our training set.
+
+00:06:22.355 --> 00:06:26.914
+Remember that the images and labels from our training set are tensors.
+
+00:06:26.914 --> 00:06:29.690
+Therefore, in order to plot our images,
+
+00:06:29.690 --> 00:06:34.150
+we first have to convert them to NumPy arrays by using the NumPy method.
+
+00:06:34.150 --> 00:06:38.600
+Since our images have shape 28 by 28 by 1,
+
+00:06:38.600 --> 00:06:43.750
+we will use the squeeze method to reshape them to be 28 by 28.
+
+00:06:43.750 --> 00:06:46.625
+Remember, the squeeze method removes
+
+00:06:46.625 --> 00:06:49.595
+single-dimensional entries from the shape of an array.
+
+00:06:49.595 --> 00:06:52.520
+We're also going to convert our label, which is a tensor,
+
+00:06:52.520 --> 00:06:55.535
+into a NumPy array by using the NumPy method.
+
+00:06:55.535 --> 00:06:58.935
+Then we plot our image using Matplotlib.
+
+00:06:58.935 --> 00:07:04.535
+Here we're using a binary color map so that our images are plotted in grayscale.
+
+00:07:04.535 --> 00:07:07.160
+We're also going to plot a color bar,
+
+00:07:07.160 --> 00:07:12.575
+and we're also going to print the corresponding label of this image. Here is the result.
+
+00:07:12.575 --> 00:07:15.560
+As we can see, this image corresponds to a nine.
+
+00:07:15.560 --> 00:07:19.550
+We also see that the image is 28 by 28,
+
+00:07:19.550 --> 00:07:24.605
+and then the pixel values in this image range from 0-255.
+
+00:07:24.605 --> 00:07:30.360
+We also see that the corresponding label of this image is a nine, as it should be.
+

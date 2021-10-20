@@ -1,0 +1,106 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:04.290
+Now, let's look at another method that we can use to create models.
+
+00:00:04.290 --> 00:00:07.170
+This method involves using the add method.
+
+00:00:07.170 --> 00:00:08.685
+Let's see an example.
+
+00:00:08.685 --> 00:00:12.930
+Here, we are creating a sequential model with no layers.
+
+00:00:12.930 --> 00:00:17.325
+We can add layers to this model by using the add method.
+
+00:00:17.325 --> 00:00:21.480
+The add method takes in as argument the layer that you want to add.
+
+00:00:21.480 --> 00:00:25.500
+Here, we're adding a flattened layer to add network.
+
+00:00:25.500 --> 00:00:28.650
+Since this model had no previous layer,
+
+00:00:28.650 --> 00:00:33.270
+then this will be the first layer of add network, and therefore,
+
+00:00:33.270 --> 00:00:39.540
+we have to specify the shape of our input tensor by using the input shape parameter.
+
+00:00:39.540 --> 00:00:44.265
+Any subsequent add statement will add a layer after the previous one.
+
+00:00:44.265 --> 00:00:47.525
+For example, this add statement will add
+
+00:00:47.525 --> 00:00:51.140
+a dense layer with 32 units after our flattened layer.
+
+00:00:51.140 --> 00:00:53.650
+Here, we can see a summary of our model.
+
+00:00:53.650 --> 00:00:58.130
+We can see that the name of this model is sequential_2.
+
+00:00:58.130 --> 00:01:04.700
+This is because this is the second sequential model in the graph created by tf keras.
+
+00:01:04.700 --> 00:01:09.499
+The add method can be very useful if you want to create large networks.
+
+00:01:09.499 --> 00:01:12.650
+For example, let's suppose we wanted to
+
+00:01:12.650 --> 00:01:16.165
+create a network with a large number of dense layers.
+
+00:01:16.165 --> 00:01:20.075
+In order to avoid having a large number of add statements,
+
+00:01:20.075 --> 00:01:23.725
+we can use a for loop. Let's see an example.
+
+00:01:23.725 --> 00:01:27.740
+Let's create a model that has six hidden layers,
+
+00:01:27.740 --> 00:01:30.710
+where each of those layers is a dense layer.
+
+00:01:30.710 --> 00:01:35.720
+Instead of having six lines of code to add those six layers to our network,
+
+00:01:35.720 --> 00:01:37.975
+we're just going to use a for loop.
+
+00:01:37.975 --> 00:01:41.570
+To do this, we're going to first make a list that
+
+00:01:41.570 --> 00:01:46.210
+contains the number of neurons in each of our six dense layers.
+
+00:01:46.210 --> 00:01:50.000
+Then we're going to create a sequential model with no layers,
+
+00:01:50.000 --> 00:01:53.855
+and then we're going to use the add method to add the input layer.
+
+00:01:53.855 --> 00:01:58.670
+Next, we use a for loop that goes through our list and
+
+00:01:58.670 --> 00:02:04.060
+uses the add method to add this dense layers to add network.
+
+00:02:04.060 --> 00:02:07.650
+Finally, we add the output layer.
+
+00:02:07.650 --> 00:02:11.150
+Here, we can see a summary of our model.
+
+00:02:11.150 --> 00:02:17.670
+This technique can be useful to easily create models with a large number of layers.
+

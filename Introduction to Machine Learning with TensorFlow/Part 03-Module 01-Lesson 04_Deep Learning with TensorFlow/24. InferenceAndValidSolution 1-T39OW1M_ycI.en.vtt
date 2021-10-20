@@ -1,0 +1,175 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.730
+Great. So here I am back in our dropout section.
+
+00:00:03.730 --> 00:00:09.105
+So far, I have only pasted in the model from earlier on.
+
+00:00:09.105 --> 00:00:15.195
+So let's go ahead and add these dropout layers to our model and then train it.
+
+00:00:15.195 --> 00:00:21.010
+Again, remember we don't want to add a dropout layer after our input layer.
+
+00:00:21.010 --> 00:00:25.080
+So I'm not going to put it in between this first flatten and dense layer.
+
+00:00:25.080 --> 00:00:28.575
+I'm going to go ahead and add it on this line,
+
+00:00:28.575 --> 00:00:38.295
+and we'll add tf.keras.layers.Dropout and we'll set the rate to 0.2.
+
+00:00:38.295 --> 00:00:41.920
+In fact, because I'm setting the rate to 0.2 multiple times,
+
+00:00:41.920 --> 00:00:46.070
+probably makes sense to just go ahead and say that I'll
+
+00:00:46.070 --> 00:00:50.715
+add a dropout equal to 0.2 up here,
+
+00:00:50.715 --> 00:00:53.760
+or that might be better as rate,
+
+00:00:53.760 --> 00:00:56.860
+so not confuse it with the layer.
+
+00:00:57.950 --> 00:01:00.655
+I've added it in here,
+
+00:01:00.655 --> 00:01:07.280
+make sure I add a comma based on that.
+
+00:01:07.280 --> 00:01:13.445
+Then again here after the third dense layer,
+
+00:01:13.445 --> 00:01:15.530
+and again, we don't need dropout at the end.
+
+00:01:15.530 --> 00:01:17.495
+There's no point for that really.
+
+00:01:17.495 --> 00:01:20.990
+So we've added our three dropout layers with a rate of
+
+00:01:20.990 --> 00:01:26.590
+0.2 and we can go ahead and start training.
+
+00:01:26.930 --> 00:01:29.985
+So that's the solution here.
+
+00:01:29.985 --> 00:01:34.010
+I will go ahead and skip out on making you sit through the training.
+
+00:01:34.010 --> 00:01:37.610
+But again, it's pretty easy to add these dropout rates and we'll come back
+
+00:01:37.610 --> 00:01:41.870
+shortly to see how the results were after adding dropout.
+
+00:01:41.870 --> 00:01:44.525
+Great, so my training is done.
+
+00:01:44.525 --> 00:01:47.120
+Let's go ahead and look through on both accuracy
+
+00:01:47.120 --> 00:01:51.000
+and validation accuracy and see how we performed.
+
+00:01:52.870 --> 00:01:57.845
+So this time we'll see regular training accuracy hit 91,
+
+00:01:57.845 --> 00:02:01.145
+while validation accuracy was about 89 percent.
+
+00:02:01.145 --> 00:02:05.430
+I did about 30 epochs here again,
+
+00:02:05.920 --> 00:02:09.005
+and we'll notice something pretty different here,
+
+00:02:09.005 --> 00:02:13.520
+that there is a curve on both of these charts
+
+00:02:13.520 --> 00:02:17.810
+that follow much better that the training accuracy and the validation accuracy,
+
+00:02:17.810 --> 00:02:20.045
+which used to have a large gap here,
+
+00:02:20.045 --> 00:02:23.435
+are much closer now at the end of training and
+
+00:02:23.435 --> 00:02:27.635
+the training validation loss also end up at a similar point.
+
+00:02:27.635 --> 00:02:31.730
+Now it's still not amazing performance and
+
+00:02:31.730 --> 00:02:35.510
+part of that's because we only probably used about 0.2 dropout.
+
+00:02:35.510 --> 00:02:39.785
+Part of it might also just be our dataset that we need more information.
+
+00:02:39.785 --> 00:02:45.065
+But either way, we've seen now an improvement we're not over fitting as badly.
+
+00:02:45.065 --> 00:02:50.040
+It's going to perform better on new data that it has never seen before.
+
+00:02:53.480 --> 00:02:57.185
+So now that the model has actually been trained,
+
+00:02:57.185 --> 00:02:59.905
+let's go ahead and use it to perform inference.
+
+00:02:59.905 --> 00:03:06.740
+We're just going to check this out on an example of 30 images and if they are correct,
+
+00:03:06.740 --> 00:03:08.555
+we'll print the labels that in green.
+
+00:03:08.555 --> 00:03:11.760
+If they're wrong, we'll print them in red.
+
+00:03:14.390 --> 00:03:18.200
+Remember, this is coming from our testing batches here.
+
+00:03:18.200 --> 00:03:20.630
+So this is data that the network has never seen
+
+00:03:20.630 --> 00:03:28.190
+before and we can actually see from these images with the green labels,
+
+00:03:28.190 --> 00:03:29.945
+it's doing pretty well.
+
+00:03:29.945 --> 00:03:32.270
+You can see even the first three rows here,
+
+00:03:32.270 --> 00:03:36.950
+it gets everything right and most of them even right in the final three rows.
+
+00:03:36.950 --> 00:03:40.370
+So we definitely have pretty good performance
+
+00:03:40.370 --> 00:03:44.405
+here on the test dataset that it's never seen before.
+
+00:03:44.405 --> 00:03:48.380
+Coming up, we'll look at how to save our train models.
+
+00:03:48.380 --> 00:03:52.355
+In general, you don't want to have to train a model every time you need it.
+
+00:03:52.355 --> 00:03:54.170
+So you can save it once,
+
+00:03:54.170 --> 00:04:00.090
+save it and then load the model when you want to train more or use it for inference.
+

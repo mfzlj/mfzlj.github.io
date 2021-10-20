@@ -1,0 +1,190 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:04.380
+Now, let's move onto using TensorFlow SavedModels format.
+
+00:00:04.380 --> 00:00:08.445
+With this, we can use tf.saved_model.save,
+
+00:00:08.445 --> 00:00:11.775
+and feed in the model and the export directory.
+
+00:00:11.775 --> 00:00:14.370
+So similar to before,
+
+00:00:14.370 --> 00:00:19.305
+if I want to save my model as my_model and a folder named saved_models,
+
+00:00:19.305 --> 00:00:20.880
+we can just use this as
+
+00:00:20.880 --> 00:00:25.930
+tf.saved_model.save with my_model first and then the directory after that.
+
+00:00:26.210 --> 00:00:29.790
+It's important to note here that we have to provide
+
+00:00:29.790 --> 00:00:32.670
+the path to the directory where we want to save our model,
+
+00:00:32.670 --> 00:00:34.950
+not the name of the file.
+
+00:00:34.950 --> 00:00:38.070
+This is because the SavedModels are not actually saved to
+
+00:00:38.070 --> 00:00:41.925
+just a single file like we saw before with Keras.
+
+00:00:41.925 --> 00:00:45.670
+So when you save it as the SavedModel,
+
+00:00:45.670 --> 00:00:48.245
+this actually creates an assets folder,
+
+00:00:48.245 --> 00:00:51.320
+a variables folder, and the saved_model,
+
+00:00:51.320 --> 00:00:54.985
+that protobuf file inside the directory you provided.
+
+00:00:54.985 --> 00:01:00.230
+So what's the difference between what this contains and what HDF5 had?
+
+00:01:00.230 --> 00:01:04.145
+SavedModel is going to have checkpoints with the model weights.
+
+00:01:04.145 --> 00:01:06.470
+It's going to have the proto containing
+
+00:01:06.470 --> 00:01:09.380
+the underlying TensorFlow graph with
+
+00:01:09.380 --> 00:01:14.095
+separate graphs for prediction, training, and evaluation.
+
+00:01:14.095 --> 00:01:16.910
+As well as the model wasn't compiled before,
+
+00:01:16.910 --> 00:01:19.460
+only the inference graph is going to get exported,
+
+00:01:19.460 --> 00:01:24.040
+just in case you look through and wonder what happened to the other graphs.
+
+00:01:24.040 --> 00:01:27.620
+As well, the model's architecture configuration will be available.
+
+00:01:27.620 --> 00:01:33.200
+As you may guess, the SavedModel is a standalone format just for TensorFlow objects.
+
+00:01:33.200 --> 00:01:36.170
+It's supported by a TensorFlow serving as well as
+
+00:01:36.170 --> 00:01:40.130
+TensorFlow implementations in languages other than Python.
+
+00:01:40.130 --> 00:01:44.225
+It does not need the original building code to run,
+
+00:01:44.225 --> 00:01:47.120
+which makes it useful for sharing or deploying in
+
+00:01:47.120 --> 00:01:50.659
+different platforms such as mobile or embedded devices,
+
+00:01:50.659 --> 00:01:54.470
+such as with TensorFlow Lite servers with TensorFlow Serving,
+
+00:01:54.470 --> 00:01:58.920
+and even Web browsers with TensorFlow.js.
+
+00:02:00.320 --> 00:02:06.090
+In the cell below, we've gone ahead and saved our train model as the SavedModel.
+
+00:02:06.090 --> 00:02:10.040
+Once again, notice that we're adding that timestamp just in case we
+
+00:02:10.040 --> 00:02:14.870
+want to have multiple models saved down and make sure that they're unique.
+
+00:02:14.870 --> 00:02:18.230
+Once a model has been saved, as a SavedModel,
+
+00:02:18.230 --> 00:02:21.470
+we can just use tf.saved_model.load
+
+00:02:21.470 --> 00:02:24.985
+with that same directory as before to reload the model.
+
+00:02:24.985 --> 00:02:32.000
+So here again, we have our savedModel directory from before and we just load it there.
+
+00:02:32.000 --> 00:02:37.205
+Please note that it is not a Keras object that gets loaded,
+
+00:02:37.205 --> 00:02:41.430
+so I won't have the.fit,.predict,.summary, etc.
+
+00:02:41.430 --> 00:02:47.195
+methods. It is completely and 100 percent independent of the code that created it.
+
+00:02:47.195 --> 00:02:51.170
+That means in order to make predictions with our reloaded_SavedModel,
+
+00:02:51.170 --> 00:02:56.290
+we need to use a different method than the one we used with the reloaded Keras models.
+
+00:02:56.290 --> 00:03:00.370
+So if we have our reloaded_SavedModel,
+
+00:03:00.370 --> 00:03:05.100
+we can feed in an image batch and set training to False.
+
+00:03:05.950 --> 00:03:08.690
+This is going to return a tensor with
+
+00:03:08.690 --> 00:03:12.420
+the predicted label probabilities for each image in the batch.
+
+00:03:12.910 --> 00:03:16.115
+So remember, we haven't done anything to this,
+
+00:03:16.115 --> 00:03:21.130
+so let's just double-check again to see if we get the same predictions.
+
+00:03:21.130 --> 00:03:24.440
+This is basically what we did with Keras before.
+
+00:03:24.440 --> 00:03:26.885
+You'll notice this isn't 0.0,
+
+00:03:26.885 --> 00:03:28.295
+but it's a very small number.
+
+00:03:28.295 --> 00:03:31.180
+So essentially, they are still the same models.
+
+00:03:31.180 --> 00:03:34.130
+Alternatively, if you do want to get back
+
+00:03:34.130 --> 00:03:37.135
+a full Keras model from a TensorFlow SavedModel,
+
+00:03:37.135 --> 00:03:42.150
+you can load it with the tf.keras.models.load_model function.
+
+00:03:42.150 --> 00:03:45.785
+That way you just pass in that savedModel directory
+
+00:03:45.785 --> 00:03:51.000
+and you'll still be able to actually get that same network from before.
+
+00:03:52.100 --> 00:03:56.270
+As you can see here, is still is able to use model.summary,
+
+00:03:56.270 --> 00:03:58.530
+it's the same model we saw.
+

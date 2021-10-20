@@ -1,0 +1,235 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.690
+Now, it's time to actually look at some data augmentation strategies.
+
+00:00:03.690 --> 00:00:06.915
+A pretty common strategy for training neural networks
+
+00:00:06.915 --> 00:00:10.275
+is to introduce some randomness in the input data itself.
+
+00:00:10.275 --> 00:00:13.200
+For example, you could do rotations,
+
+00:00:13.200 --> 00:00:18.000
+flipping, rescaling, or even cropping the images in your training set.
+
+00:00:18.000 --> 00:00:22.590
+This is going to help your network generalize as its seen the same images,
+
+00:00:22.590 --> 00:00:25.095
+but in different locations with different sizes,
+
+00:00:25.095 --> 00:00:27.600
+different orientations, et cetera.
+
+00:00:27.600 --> 00:00:30.840
+We can implement these transformations by passing them
+
+00:00:30.840 --> 00:00:34.065
+as arguments to our image data generator class.
+
+00:00:34.065 --> 00:00:37.260
+We'll walk through a few examples here and we'll also let
+
+00:00:37.260 --> 00:00:40.620
+you look at the documentation to add a few more yourself later on.
+
+00:00:40.620 --> 00:00:43.970
+First, let's define a plotting function so that
+
+00:00:43.970 --> 00:00:47.760
+we can see the type of transformation that has been applied.
+
+00:00:48.200 --> 00:00:51.905
+So here, it's just our basic plot images function.
+
+00:00:51.905 --> 00:00:53.600
+It's going to create our subplots with
+
+00:00:53.600 --> 00:00:58.100
+matplotlib and it's going to just go ahead and show that image
+
+00:00:58.100 --> 00:01:01.490
+and this is going to be able to plot out five images at
+
+00:01:01.490 --> 00:01:06.000
+once so that we can see different transformation impacts.
+
+00:01:06.070 --> 00:01:11.070
+First, let's start by flipping the image horizontally.
+
+00:01:11.230 --> 00:01:15.140
+We can do this by using the horizontal flip equals
+
+00:01:15.140 --> 00:01:19.310
+true argument and the ImageDataGenerator class.
+
+00:01:19.310 --> 00:01:24.530
+Notice again that we're normalizing our pixel values between zero and one.
+
+00:01:24.890 --> 00:01:32.040
+So here we'll flow from the directory with a few example images and looking at our plot,
+
+00:01:32.040 --> 00:01:37.295
+you can see here's our original image and all these are horizontally flipped.
+
+00:01:37.295 --> 00:01:40.820
+Again, these other four we can even apply
+
+00:01:40.820 --> 00:01:44.285
+further transformations so that it's not just for the same image,
+
+00:01:44.285 --> 00:01:47.195
+but it's an improvement on the original data,
+
+00:01:47.195 --> 00:01:49.490
+where instead of only learning this image it now
+
+00:01:49.490 --> 00:01:53.310
+learns that a cat can also be oriented in this way.
+
+00:01:55.610 --> 00:01:59.720
+Next up, let's look at how to rotate an image.
+
+00:01:59.720 --> 00:02:04.220
+In this case, we can use rotation range along with an angle.
+
+00:02:04.220 --> 00:02:08.275
+Here we'll go ahead and set the maximum angle to be 45 degrees.
+
+00:02:08.275 --> 00:02:11.735
+Now that doesn't mean every single one of them is going to be 45,
+
+00:02:11.735 --> 00:02:14.660
+that just means somewhere between 0 and 45 degrees
+
+00:02:14.660 --> 00:02:18.040
+is the amount of rotation that can occur to the image.
+
+00:02:18.040 --> 00:02:21.770
+So again, we'll use flow from directory along
+
+00:02:21.770 --> 00:02:25.060
+with our image data generator and here's a few plots.
+
+00:02:25.060 --> 00:02:26.960
+It's not always super obvious the difference,
+
+00:02:26.960 --> 00:02:30.095
+but here you can see the rabbit is very straight,
+
+00:02:30.095 --> 00:02:32.270
+and here the rabbit is more crooked.
+
+00:02:32.270 --> 00:02:35.700
+The dog is a little tougher to see that rotation with,
+
+00:02:35.700 --> 00:02:38.810
+but you can tell that there are differences here and
+
+00:02:38.810 --> 00:02:41.600
+different neurons and different parts of our network are
+
+00:02:41.600 --> 00:02:45.480
+going to be lit up differently based on that rotation.
+
+00:02:45.850 --> 00:02:49.535
+Next, we can look at applying zoom.
+
+00:02:49.535 --> 00:02:52.310
+So we can do this with zoom range.
+
+00:02:52.310 --> 00:02:56.285
+Again, similarly to our rotation range earlier,
+
+00:02:56.285 --> 00:03:01.095
+this is going to be how much of that zoom we can apply.
+
+00:03:01.095 --> 00:03:06.780
+In this case, it's from 0-1 as opposed to the angle from before.
+
+00:03:07.100 --> 00:03:11.930
+Again, here you can see pretty obvious difference in these images,
+
+00:03:11.930 --> 00:03:15.410
+that here's the initial cat image and here's a more zoomed in
+
+00:03:15.410 --> 00:03:20.080
+image and some one's that seemed to be a little like stretched out, et cetera.
+
+00:03:20.080 --> 00:03:22.940
+Great. So you've seen a little bit of how to do
+
+00:03:22.940 --> 00:03:26.060
+this and now it's going to be your turn to use some of
+
+00:03:26.060 --> 00:03:29.060
+these different data augmentation techniques
+
+00:03:29.060 --> 00:03:32.515
+on some of the data from our cat versus dog dataset.
+
+00:03:32.515 --> 00:03:39.760
+So instead of before where we saw a cat and just four that were all horizontally flipped,
+
+00:03:39.760 --> 00:03:42.710
+we can apply multiple transformations at once.
+
+00:03:42.710 --> 00:03:45.170
+So a horizontal flip may occur,
+
+00:03:45.170 --> 00:03:48.890
+rotation range and zoom range all of these together and
+
+00:03:48.890 --> 00:03:53.675
+create a wider variety of data than our original dataset had.
+
+00:03:53.675 --> 00:03:57.185
+Again, there's a lot of different options here.
+
+00:03:57.185 --> 00:04:00.020
+So we'll have you at least apply
+
+00:04:00.020 --> 00:04:03.230
+these transformation to the training set of rotation range,
+
+00:04:03.230 --> 00:04:06.245
+width shift range, height shift range,
+
+00:04:06.245 --> 00:04:09.140
+sheer range, zoom range,
+
+00:04:09.140 --> 00:04:11.615
+horizontal flip, and fill mode.
+
+00:04:11.615 --> 00:04:17.280
+We've linked here to the documentation so that you can actually check this out yourself.
+
+00:04:19.820 --> 00:04:22.280
+You'll be able to read through and see
+
+00:04:22.280 --> 00:04:25.505
+the different impacts as well as how to actually use each of these.
+
+00:04:25.505 --> 00:04:28.595
+As we noted before with zoom,
+
+00:04:28.595 --> 00:04:30.860
+as well as the rotation angle,
+
+00:04:30.860 --> 00:04:33.515
+note that there are differences of those inputs.
+
+00:04:33.515 --> 00:04:37.360
+So you do need to check here the documentation of how to use each.
+
+00:04:37.360 --> 00:04:41.900
+Back in the notebook you can go ahead and implement these data augmentation techniques,
+
+00:04:41.900 --> 00:04:45.390
+and I'll see you back soon in the solution video.
+

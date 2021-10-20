@@ -1,0 +1,244 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.889
+So far, we've had to retrain
+
+00:00:02.889 --> 00:00:07.415
+a new neural network each time when we come back to our dataset.
+
+00:00:07.415 --> 00:00:10.375
+This isn't really feasible to continue doing.
+
+00:00:10.375 --> 00:00:15.590
+So let's go ahead and learn how to save and load models with TensorFlow.
+
+00:00:16.100 --> 00:00:21.140
+Again, we'll first just import all the resources that we need.
+
+00:00:21.140 --> 00:00:24.160
+We're going to use our fashion in this dataset once again.
+
+00:00:24.160 --> 00:00:26.440
+So we've gone ahead and done our 60,
+
+00:00:26.440 --> 00:00:28.750
+20,20 split as before,
+
+00:00:28.750 --> 00:00:32.290
+and we can still see that it's the same dataset of
+
+00:00:32.290 --> 00:00:37.760
+42,000 images and training 14 and 14 and validation and test.
+
+00:00:37.920 --> 00:00:43.690
+Once again, we can see our 28 by 28 by one image here,
+
+00:00:43.690 --> 00:00:45.890
+just as an example, I'm not sure it is in there.
+
+00:00:45.890 --> 00:00:49.310
+We'll create our pipeline the same as before with our training,
+
+00:00:49.310 --> 00:00:51.235
+validation, and test batches.
+
+00:00:51.235 --> 00:00:54.090
+Now as we get into building and training the model,
+
+00:00:54.090 --> 00:00:57.560
+we will again use a fairly straightforward network as
+
+00:00:57.560 --> 00:01:01.600
+we're mainly focused on saving and loading models here and not so much on network,
+
+00:01:01.600 --> 00:01:03.455
+but as we saw before,
+
+00:01:03.455 --> 00:01:07.849
+we're just going to go ahead and add these based off of the 512,
+
+00:01:07.849 --> 00:01:09.995
+256 and 128 neurons,
+
+00:01:09.995 --> 00:01:11.600
+followed by dropout layers,
+
+00:01:11.600 --> 00:01:17.280
+and then the final output layer that's fully connected with 10 neurons.
+
+00:01:17.280 --> 00:01:20.640
+Again, here's our model summary.
+
+00:01:20.640 --> 00:01:23.900
+We're only going to train here for four epochs just
+
+00:01:23.900 --> 00:01:27.780
+because we're again focused on the saving and loading of the model,
+
+00:01:27.780 --> 00:01:30.770
+but you can see here that at the end of these four epochs,
+
+00:01:30.770 --> 00:01:34.909
+we already had about 83 percent training accuracy
+
+00:01:34.909 --> 00:01:37.870
+and about 85 percent validation accuracy.
+
+00:01:37.870 --> 00:01:43.280
+So the part you've all been waiting for on saving and loading models.
+
+00:01:43.280 --> 00:01:46.370
+We can actually use different formats with TensorFlow.
+
+00:01:46.370 --> 00:01:52.815
+So we're going to check this out both in HDF5 as well as TensorFlow saved model format.
+
+00:01:52.815 --> 00:01:55.340
+Keras usually uses HDF5.
+
+00:01:55.340 --> 00:02:00.905
+It's also pretty common to see a lot of datasets out there using this format as well.
+
+00:02:00.905 --> 00:02:04.985
+So to save our models in the format used by Keras,
+
+00:02:04.985 --> 00:02:08.885
+we can just use the dot save with a file path method.
+
+00:02:08.885 --> 00:02:12.700
+For example, if you have your model and you want
+
+00:02:12.700 --> 00:02:16.430
+to go ahead and save it to this name of test model,
+
+00:02:16.430 --> 00:02:19.235
+you can go ahead and say my model.save,
+
+00:02:19.235 --> 00:02:24.185
+and it'll save it in your directory as testmodel.h5.
+
+00:02:24.185 --> 00:02:28.280
+This is also just to note to the Keras with the h5 at
+
+00:02:28.280 --> 00:02:33.060
+the end that we want it to be in a HDF5 format.
+
+00:02:33.230 --> 00:02:36.140
+So what does this file actually going to have?
+
+00:02:36.140 --> 00:02:38.525
+It's going to have the model architecture.
+
+00:02:38.525 --> 00:02:41.840
+It's going to have the weight values that came from training.
+
+00:02:41.840 --> 00:02:45.020
+It'll also tell a little bit about the training configuration,
+
+00:02:45.020 --> 00:02:47.230
+what you pass through the compile method,
+
+00:02:47.230 --> 00:02:49.580
+and in this case, just as a reminder,
+
+00:02:49.580 --> 00:02:53.190
+this is what our optimizer loss and metrics were.
+
+00:02:54.800 --> 00:02:59.495
+Additionally, it's going to tell a little bit about the optimizer and its state,
+
+00:02:59.495 --> 00:03:01.745
+meaning that we can actually resume training
+
+00:03:01.745 --> 00:03:03.935
+in the same spot that we left off from before,
+
+00:03:03.935 --> 00:03:06.570
+where we only train for four epics.
+
+00:03:06.620 --> 00:03:14.720
+So here, we'll go ahead and save the model that we just trained to an h5 file.
+
+00:03:14.720 --> 00:03:19.535
+Note that we actually also are going to append a timestamp on there here,
+
+00:03:19.535 --> 00:03:23.615
+and that's mainly just so you can tell a difference between
+
+00:03:23.615 --> 00:03:25.460
+a lot of different models if you're going through and
+
+00:03:25.460 --> 00:03:28.500
+training a lot of them at the same time.
+
+00:03:28.910 --> 00:03:32.460
+Note that this by default,
+
+00:03:32.460 --> 00:03:36.170
+will overwrite any existing file at that location.
+
+00:03:36.170 --> 00:03:40.370
+So adding the timestamp can make sure you don't accidentally overwrite
+
+00:03:40.370 --> 00:03:45.410
+something without noticing and you maybe lose a better model you already trained.
+
+00:03:45.410 --> 00:03:49.205
+You can also set an argument for overwrite
+
+00:03:49.205 --> 00:03:53.670
+as false and the dot save method if you want to avoid this issue.
+
+00:03:55.600 --> 00:03:58.475
+So now that our model has been saved,
+
+00:03:58.475 --> 00:04:05.770
+we can use.models.loadmodel function with tf.keras to reload the model.
+
+00:04:05.770 --> 00:04:08.835
+So here's our file path from before,
+
+00:04:08.835 --> 00:04:13.465
+and we can see from the model summary here, it's the same model.
+
+00:04:13.465 --> 00:04:15.875
+So of course,
+
+00:04:15.875 --> 00:04:18.875
+just the model having the same architecture doesn't necessarily mean anything.
+
+00:04:18.875 --> 00:04:23.250
+Let's just make sure that we actually check it and see what the performance is,
+
+00:04:23.250 --> 00:04:25.460
+because if the accuracy isn't there anymore,
+
+00:04:25.460 --> 00:04:27.625
+we didn't actually do anything.
+
+00:04:27.625 --> 00:04:33.320
+So here, we can check and see it against our test batches.
+
+00:04:33.320 --> 00:04:35.960
+Let's see how both the original model
+
+00:04:35.960 --> 00:04:38.885
+that we still have saved in our notebook otherwise would have
+
+00:04:38.885 --> 00:04:45.140
+gone away once we close on notebook and as well as our reloaded Keras model.
+
+00:04:45.140 --> 00:04:49.160
+We're going to perform a quick check on
+
+00:04:49.160 --> 00:04:52.640
+if there's any difference between the predictions of one versus the other,
+
+00:04:52.640 --> 00:04:55.205
+and as we can see here, we got zero.
+
+00:04:55.205 --> 00:04:58.620
+So they actually are still performing the exact same.
+

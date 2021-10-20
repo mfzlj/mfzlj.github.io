@@ -1,0 +1,109 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:01.995
+Now you might be thinking,
+
+00:00:01.995 --> 00:00:04.755
+earlier we used early stopping.
+
+00:00:04.755 --> 00:00:09.405
+At that point, it would just in training at a certain point.
+
+00:00:09.405 --> 00:00:13.725
+But what if you actually wanted it to save down a certain model
+
+00:00:13.725 --> 00:00:19.385
+during training or even each model along the way, you can do that too.
+
+00:00:19.385 --> 00:00:24.710
+So let's go ahead and look at what happens if
+
+00:00:24.710 --> 00:00:30.330
+we use a new callback with tf.keras called the model checkpoint.
+
+00:00:32.090 --> 00:00:37.085
+In this case, we can feed in what we want the name to be.
+
+00:00:37.085 --> 00:00:39.440
+Again, how we monitor it,
+
+00:00:39.440 --> 00:00:41.695
+which you can decide on how you want to monitor it.
+
+00:00:41.695 --> 00:00:44.570
+It doesn't always have to be validation lost.
+
+00:00:46.990 --> 00:00:51.080
+You can make sure that you save best only with true.
+
+00:00:51.080 --> 00:00:52.445
+Or if you save to false,
+
+00:00:52.445 --> 00:00:54.845
+it will save every single model along the way.
+
+00:00:54.845 --> 00:00:59.925
+Remember that it could be overwriting if you have the same name every time.
+
+00:00:59.925 --> 00:01:02.680
+So this callback by default and saves
+
+00:01:02.680 --> 00:01:06.670
+that model as it carries HDF5 file after every epoch.
+
+00:01:06.670 --> 00:01:10.690
+As I mentioned, you can set save best only to true to make it,
+
+00:01:10.690 --> 00:01:13.420
+so that it will replace the previous
+
+00:01:13.420 --> 00:01:17.905
+best if your current epoch has improved the validation loss.
+
+00:01:17.905 --> 00:01:20.950
+This will guarantee that you'll end up with the version of
+
+00:01:20.950 --> 00:01:24.535
+the model to achieve the lowest validation loss during training.
+
+00:01:24.535 --> 00:01:27.565
+So below, I've now implemented in
+
+00:01:27.565 --> 00:01:32.395
+both early stopping and ModelCheckpoint to our model so that when it trains,
+
+00:01:32.395 --> 00:01:34.660
+it will both potentially stop early.
+
+00:01:34.660 --> 00:01:39.520
+So that if you set it for a 100 epochs and it stops improving as of epoch 20,
+
+00:01:39.520 --> 00:01:42.870
+it'll still stop after 10 epochs.
+
+00:01:42.870 --> 00:01:46.070
+It will also be saving down the best model as far
+
+00:01:46.070 --> 00:01:49.360
+as validation loss goes every step of the way.
+
+00:01:49.360 --> 00:01:52.025
+You can go ahead and run this in your own notebook.
+
+00:01:52.025 --> 00:01:55.400
+You can also set the verbosity levels differently,
+
+00:01:55.400 --> 00:02:00.275
+so that it will be able to tell you whether or not it is saving down the model.
+
+00:02:00.275 --> 00:02:01.640
+Here I haven't set that,
+
+00:02:01.640 --> 00:02:05.390
+just to cut down on the amount of information that's in the notebook,
+
+00:02:05.390 --> 00:02:08.790
+but otherwise, you can feel free to do that yourself as well.
+

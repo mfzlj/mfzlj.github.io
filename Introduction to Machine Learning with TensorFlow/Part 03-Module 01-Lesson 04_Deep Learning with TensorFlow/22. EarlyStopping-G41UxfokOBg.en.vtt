@@ -1,0 +1,130 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:04.935
+So we saw this phenomenon known as overfitting.
+
+00:00:04.935 --> 00:00:07.485
+It performed really well on the training data,
+
+00:00:07.485 --> 00:00:13.320
+but it didn't generalize well enough to perform well on the validation set.
+
+00:00:13.320 --> 00:00:17.100
+So one of the ways we can prevent
+
+00:00:17.100 --> 00:00:22.980
+overfitting is by stopping training when we achieve the lowest validation loss.
+
+00:00:22.980 --> 00:00:26.085
+When we look at those plots from before,
+
+00:00:26.085 --> 00:00:30.105
+we can see that at first validation loss actually did decrease,
+
+00:00:30.105 --> 00:00:31.845
+but then it started increasing.
+
+00:00:31.845 --> 00:00:37.930
+What if we had instead stopped our model here at the best validation loss?
+
+00:00:37.970 --> 00:00:41.775
+This strategy is called early stopping.
+
+00:00:41.775 --> 00:00:48.155
+We can implement early stopping in TensorFlow dot keras by using a callback.
+
+00:00:48.155 --> 00:00:52.580
+A callback is a set of functions to be applied at given stages of
+
+00:00:52.580 --> 00:00:56.870
+the training process and you can actually pass a list of
+
+00:00:56.870 --> 00:01:02.280
+these callbacks to the fit method using the callbacks keyword argument.
+
+00:01:03.290 --> 00:01:06.450
+Here we'll use the early stopping callback,
+
+00:01:06.450 --> 00:01:10.100
+we'll monitor the validation loss and again it's up to you as
+
+00:01:10.100 --> 00:01:15.665
+the developer to decide what to monitor and the patients here is also important.
+
+00:01:15.665 --> 00:01:21.215
+This is how many epochs the model will wait for before fully stopping training.
+
+00:01:21.215 --> 00:01:23.310
+Here we've set to five,
+
+00:01:23.310 --> 00:01:27.500
+we need it'll continue to train for another five epochs even if we don't
+
+00:01:27.500 --> 00:01:32.690
+see an improvement in the validation loss that we're monitoring.
+
+00:01:32.690 --> 00:01:37.490
+We can also specify a minimum change to be
+
+00:01:37.490 --> 00:01:42.050
+required to qualify as an improvement by specifying min delta.
+
+00:01:42.050 --> 00:01:46.520
+This means that if you only are improving by a fraction of a percent,
+
+00:01:46.520 --> 00:01:47.840
+you might still say, hey,
+
+00:01:47.840 --> 00:01:51.480
+I want to go ahead and stop it's flattening out anyway.
+
+00:01:52.160 --> 00:01:54.785
+So here's our updated model.
+
+00:01:54.785 --> 00:01:56.180
+The model is still the same,
+
+00:01:56.180 --> 00:01:57.530
+compilation is still the same,
+
+00:01:57.530 --> 00:02:01.445
+but we're adding this callback into our model.fit command here,
+
+00:02:01.445 --> 00:02:06.180
+we have callbacks of early stopping that we set here.
+
+00:02:07.100 --> 00:02:10.930
+Again, I went ahead and train this so we don't all have to sit here and watch
+
+00:02:10.930 --> 00:02:15.295
+the entire curve and plotting it similarly again.
+
+00:02:15.295 --> 00:02:20.640
+So this seems maybe like it made some difference,
+
+00:02:20.640 --> 00:02:24.890
+it's not huge yet remember we stopped nearby to that bottom.
+
+00:02:24.890 --> 00:02:28.445
+So it just means that we trained for less epochs.
+
+00:02:28.445 --> 00:02:30.955
+If we actually go back up here,
+
+00:02:30.955 --> 00:02:35.680
+we can see we set it to a 100 epochs and yet wait a second,
+
+00:02:35.680 --> 00:02:39.915
+we only train for 10 and that's because it stopped early.
+
+00:02:39.915 --> 00:02:41.860
+It saw that it wasn't improving anymore.
+
+00:02:41.860 --> 00:02:46.015
+So instead of getting to a worse validation accuracy,
+
+00:02:46.015 --> 00:02:50.060
+once it got to its best point, it went ahead and stopped.
+

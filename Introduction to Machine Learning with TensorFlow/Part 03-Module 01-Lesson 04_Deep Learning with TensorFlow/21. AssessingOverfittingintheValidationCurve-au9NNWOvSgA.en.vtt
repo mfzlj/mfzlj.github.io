@@ -1,0 +1,187 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:04.920
+Once again, we're just going to look at what our model does before training.
+
+00:00:04.920 --> 00:00:06.945
+So we can see on our test set,
+
+00:00:06.945 --> 00:00:09.645
+that it's only getting about 13 percent accuracy.
+
+00:00:09.645 --> 00:00:13.499
+That's pretty close to what you would guess of 10 percent accuracy
+
+00:00:13.499 --> 00:00:18.405
+given our 10 classes and it has not seen any of the data here.
+
+00:00:18.405 --> 00:00:21.900
+So the real goal of validation is to see what
+
+00:00:21.900 --> 00:00:23.700
+the model's performance on data is that
+
+00:00:23.700 --> 00:00:26.190
+isn't part of that training set we're about to use.
+
+00:00:26.190 --> 00:00:31.240
+We can actually define as the developer what we want performance to mean.
+
+00:00:31.240 --> 00:00:34.219
+Typically, this is just accuracy
+
+00:00:34.219 --> 00:00:37.910
+or the percentage of classes the network predicted correctly.
+
+00:00:37.910 --> 00:00:40.970
+There are other options such as precision and
+
+00:00:40.970 --> 00:00:44.810
+recall or top five error rate that can be used.
+
+00:00:44.810 --> 00:00:47.705
+Again, we'll just focus on accuracy here.
+
+00:00:47.705 --> 00:00:55.370
+It's pretty straightforward. So now as you can see,
+
+00:00:55.370 --> 00:00:57.785
+I've already gone ahead and ran the training,
+
+00:00:57.785 --> 00:01:03.365
+but we'll look at how using this validation data is important.
+
+00:01:03.365 --> 00:01:08.905
+So now we actually have the validation data coming in with their validation batches.
+
+00:01:08.905 --> 00:01:11.480
+You might look at this first to say, wait a second,
+
+00:01:11.480 --> 00:01:14.555
+I thought we weren't going to show the model the validation data.
+
+00:01:14.555 --> 00:01:18.545
+The training is still occurring on our training batches.
+
+00:01:18.545 --> 00:01:21.625
+We feed in the validation data here to our
+
+00:01:21.625 --> 00:01:25.670
+model.fit function so that it can compare their performance at the end.
+
+00:01:25.670 --> 00:01:31.620
+However, it won't update the weights and biases with that validation set.
+
+00:01:31.620 --> 00:01:33.815
+It's only on the training set.
+
+00:01:33.815 --> 00:01:39.500
+These metrics tell us how well our model is learning because it shows how well the model
+
+00:01:39.500 --> 00:01:42.305
+generalizes to this new validation data
+
+00:01:42.305 --> 00:01:46.085
+that wasn't used for training that it has not seen yet.
+
+00:01:46.085 --> 00:01:52.370
+So let's look real quickly at what the accuracy and validation loss appear to be doing.
+
+00:01:52.370 --> 00:01:55.970
+You'll see the train accuracy starts about 80 percent.
+
+00:01:55.970 --> 00:02:01.155
+Validation loss is almost non-existent the first time around.
+
+00:02:01.155 --> 00:02:08.610
+Validation accuracy as well is almost non-existent and we see train accuracy going up.
+
+00:02:08.990 --> 00:02:14.300
+Let's go all the way down to our last one where we see train accuracy got
+
+00:02:14.300 --> 00:02:19.070
+95 percent and then validation accuracy stayed at 88 percent.
+
+00:02:19.070 --> 00:02:21.125
+So that's kind of interesting.
+
+00:02:21.125 --> 00:02:25.530
+Let's visualize this real quick to make it a little easier.
+
+00:02:27.940 --> 00:02:32.750
+So again, we can see that the train accuracy above kept
+
+00:02:32.750 --> 00:02:35.030
+improving and yet the validation
+
+00:02:35.030 --> 00:02:38.795
+set didn't really seem to improve and had worse accuracy.
+
+00:02:38.795 --> 00:02:41.550
+That's a pretty clear sign of overfitting.
+
+00:02:41.550 --> 00:02:45.290
+So our model has basically memorized the training set
+
+00:02:45.290 --> 00:02:49.040
+so well that when it looks at a new dataset,
+
+00:02:49.040 --> 00:02:51.390
+it doesn't know what it's seeing.
+
+00:02:53.480 --> 00:02:59.080
+Again, we can use our model.fit object pretty
+
+00:02:59.080 --> 00:03:05.720
+easily to get a history of what occurred with our training.
+
+00:03:06.170 --> 00:03:09.580
+Here you'll see that history.history is
+
+00:03:09.580 --> 00:03:14.360
+just a dictionary with a record of train accuracy and loss.
+
+00:03:14.840 --> 00:03:18.850
+The keys here are just loss, accuracy, validation loss,
+
+00:03:18.850 --> 00:03:23.120
+and validation accuracy, which were getting printed to the terminal before.
+
+00:03:25.710 --> 00:03:32.005
+So we'll use these to actually plot out the loss and accuracy values throughout training.
+
+00:03:32.005 --> 00:03:36.500
+You can see here we're just obtaining those dictionary values throughout
+
+00:03:36.500 --> 00:03:39.350
+how many epics we actually ran training for and we're
+
+00:03:39.350 --> 00:03:43.260
+plotting them down below with matplotlib's pyplot.
+
+00:03:44.270 --> 00:03:47.165
+These are pretty interesting graphs.
+
+00:03:47.165 --> 00:03:53.195
+You can see the training accuracy although it did slightly curl downward towards the end,
+
+00:03:53.195 --> 00:03:55.415
+that it wasn't training as fast.
+
+00:03:55.415 --> 00:04:00.245
+The validation accuracy very quickly flattens out and doesn't improve.
+
+00:04:00.245 --> 00:04:03.605
+In fact, looking at training validation loss,
+
+00:04:03.605 --> 00:04:07.820
+validation loss actually increased as training went on,
+
+00:04:07.820 --> 00:04:10.520
+while training loss continue to decrease.
+
+00:04:10.520 --> 00:04:14.070
+There's clearly some overfitting occurring here.
+

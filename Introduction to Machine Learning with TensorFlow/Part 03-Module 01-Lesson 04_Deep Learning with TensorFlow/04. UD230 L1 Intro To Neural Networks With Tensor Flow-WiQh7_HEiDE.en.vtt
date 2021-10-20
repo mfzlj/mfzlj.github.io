@@ -1,0 +1,142 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:05.145
+Hello everyone, and welcome to this lesson on deep learning with TensorFlow.
+
+00:00:05.145 --> 00:00:09.795
+So now that you know all the theory behind neural networks, in this lesson,
+
+00:00:09.795 --> 00:00:15.405
+I'm going to show you how you can build and train neural networks with TensorFlow.
+
+00:00:15.405 --> 00:00:20.010
+TensorFlow is an open source library developed by Google,
+
+00:00:20.010 --> 00:00:23.390
+to help you create and train machine learning models.
+
+00:00:23.390 --> 00:00:25.475
+By the end of this lesson,
+
+00:00:25.475 --> 00:00:29.090
+you will have built your own state of the art image classifier.
+
+00:00:29.090 --> 00:00:34.660
+But first, let's begin with a quick recap of how neural networks work.
+
+00:00:34.660 --> 00:00:37.325
+In general, in a neural network,
+
+00:00:37.325 --> 00:00:40.700
+we have some inputs like x_1 and x_2,
+
+00:00:40.700 --> 00:00:43.310
+that we multiply by some weights,
+
+00:00:43.310 --> 00:00:50.920
+and then we add them up with a bias value to get a value h. Then this value h,
+
+00:00:50.920 --> 00:00:55.940
+is passed through an activation function to get an output value y.
+
+00:00:55.940 --> 00:00:59.540
+This is the basis of all neural networks.
+
+00:00:59.540 --> 00:01:03.875
+You have some inputs that you multiply by some weights,
+
+00:01:03.875 --> 00:01:09.545
+you add them up, and then pass the result to an activation function to get an output.
+
+00:01:09.545 --> 00:01:12.850
+Mathematically, this looks like this.
+
+00:01:12.850 --> 00:01:18.560
+Your output y, is just a linear combination of the weights and input values,
+
+00:01:18.560 --> 00:01:22.475
+plus a bias that are passed through an activation function
+
+00:01:22.475 --> 00:01:28.735
+f. If we let b equals Weight 0 times Input 0,
+
+00:01:28.735 --> 00:01:33.695
+then we can express h as the inner product of two vectors.
+
+00:01:33.695 --> 00:01:36.860
+Therefore, we can think of our input values,
+
+00:01:36.860 --> 00:01:40.655
+as one vector, and our weights as another vector.
+
+00:01:40.655 --> 00:01:46.090
+This is nice because vectors are just first rank tensors.
+
+00:01:46.090 --> 00:01:51.185
+Tensors are just a generalization of vectors and matrices.
+
+00:01:51.185 --> 00:01:53.195
+Let's see some examples.
+
+00:01:53.195 --> 00:01:57.545
+A tensor with only one dimension is called a vector.
+
+00:01:57.545 --> 00:02:02.465
+So we just have a single one-dimensional array of values.
+
+00:02:02.465 --> 00:02:06.490
+A matrix like this is a two-dimensional tensor.
+
+00:02:06.490 --> 00:02:11.440
+We can see that this tensor has values from left to right,
+
+00:02:11.440 --> 00:02:13.475
+and from top to bottom.
+
+00:02:13.475 --> 00:02:16.580
+We can also have three-dimensional tensors.
+
+00:02:16.580 --> 00:02:21.515
+You can think of an RGB color image as a three-dimensional tensor.
+
+00:02:21.515 --> 00:02:26.780
+So for every individual pixel in the two-dimensional RGB image,
+
+00:02:26.780 --> 00:02:28.775
+you have three values.
+
+00:02:28.775 --> 00:02:30.845
+You can actually have four-dimensional,
+
+00:02:30.845 --> 00:02:33.745
+five-dimensional, and N-dimensional tensors.
+
+00:02:33.745 --> 00:02:37.910
+These tensors are the main data structure used in TensorFlow.
+
+00:02:37.910 --> 00:02:40.790
+In this notebook, we're going to create
+
+00:02:40.790 --> 00:02:44.914
+some tensors and use them to build simple neural networks.
+
+00:02:44.914 --> 00:02:48.190
+We begin by importing our resources.
+
+00:02:48.190 --> 00:02:53.360
+Throughout this lesson, we're going to use this version of TensorFlow,
+
+00:02:53.360 --> 00:02:58.825
+which currently is the latest version of TensorFlow 2.0.
+
+00:02:58.825 --> 00:03:01.905
+Here, we import NumPy and TensorFlow.
+
+00:03:01.905 --> 00:03:06.305
+We also have some extra imports to ignore warning messages.
+
+00:03:06.305 --> 00:03:11.340
+Finally, we print the version of TensorFlow that we're using.
+

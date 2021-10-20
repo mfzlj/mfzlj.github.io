@@ -1,0 +1,226 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:04.635
+Now that we've got some experience creating neural networks ourselves,
+
+00:00:04.635 --> 00:00:09.990
+let's see how easy it is to create neural networks with TensorFlow and Keras.
+
+00:00:09.990 --> 00:00:13.920
+Here we're using TF Keras to build
+
+00:00:13.920 --> 00:00:19.720
+the same fully-connected network that we built in the previous sections of this notebook.
+
+00:00:19.720 --> 00:00:25.815
+As we can see, it only took a few lines of code to create this same network.
+
+00:00:25.815 --> 00:00:28.890
+Let's go through this code line by line.
+
+00:00:28.890 --> 00:00:32.895
+So in Keras, deep learning models are constructed
+
+00:00:32.895 --> 00:00:36.975
+by connecting configurable building blocks called layers.
+
+00:00:36.975 --> 00:00:42.160
+The most common type of model is a stack of layers called a sequential model.
+
+00:00:42.160 --> 00:00:45.560
+The model is called sequential because it allows the tensor
+
+00:00:45.560 --> 00:00:49.115
+to be passed sequentially through the operations in each layer.
+
+00:00:49.115 --> 00:00:51.560
+So in this first line,
+
+00:00:51.560 --> 00:00:57.130
+we're creating a sequential model by using TF.Keras.sequential.
+
+00:00:57.130 --> 00:01:00.915
+Our sequential model has three layers.
+
+00:01:00.915 --> 00:01:05.925
+Our first layer, also known as the input layer is flattened layer.
+
+00:01:05.925 --> 00:01:09.980
+This layer flattens our input images so that we don't
+
+00:01:09.980 --> 00:01:14.060
+have to flatten the images ourselves before fitting them into the network.
+
+00:01:14.060 --> 00:01:15.320
+That's pretty sweet, right?
+
+00:01:15.320 --> 00:01:17.270
+One last thing to worry about.
+
+00:01:17.270 --> 00:01:20.330
+The first layer in a sequential model needs
+
+00:01:20.330 --> 00:01:23.360
+to know the shape of the input tensors to the model.
+
+00:01:23.360 --> 00:01:25.460
+Since this is our first layer,
+
+00:01:25.460 --> 00:01:31.905
+we need to specify the shape of our input tensors by using the input shape parameter.
+
+00:01:31.905 --> 00:01:36.575
+The input shape parameter is specified by using a tuple.
+
+00:01:36.575 --> 00:01:41.480
+This tuple contains the size and the number of color channels of our images.
+
+00:01:41.480 --> 00:01:44.990
+Here we're specifying that our images have a size of
+
+00:01:44.990 --> 00:01:49.745
+28 by 28 pixels and that they have one color channel.
+
+00:01:49.745 --> 00:01:52.415
+Since they are gray scale images,
+
+00:01:52.415 --> 00:01:57.860
+it is important to note that we don't have to include the batch size in this tuple.
+
+00:01:57.860 --> 00:02:02.855
+The second layer of our network is going to be a fully connected layer.
+
+00:02:02.855 --> 00:02:08.030
+Fully connected layers are also known as densely connected layers,
+
+00:02:08.030 --> 00:02:12.850
+which is why in TF Keras we refer to them as dense layers.
+
+00:02:12.850 --> 00:02:14.285
+For a dense layer,
+
+00:02:14.285 --> 00:02:20.240
+we need to specify the number of neurons and the activation function we want to use.
+
+00:02:20.240 --> 00:02:22.220
+In this particular case,
+
+00:02:22.220 --> 00:02:28.400
+we're going to use 256 neurons and we're going to use a sigmoid activation function.
+
+00:02:28.400 --> 00:02:33.875
+Note that we don't have to specify the shape of the input denser to this layer,
+
+00:02:33.875 --> 00:02:37.205
+because Keras performs automatic shape inference
+
+00:02:37.205 --> 00:02:40.090
+for all layers except for the first layer.
+
+00:02:40.090 --> 00:02:42.800
+Our third and last layer,
+
+00:02:42.800 --> 00:02:44.795
+also known as the output layer,
+
+00:02:44.795 --> 00:02:47.015
+is also going to be a dense layer,
+
+00:02:47.015 --> 00:02:53.905
+but now with then neurons and a soft max activation function and that's it.
+
+00:02:53.905 --> 00:02:57.965
+That's how easy it is to create a model with TF Keras.
+
+00:02:57.965 --> 00:03:00.950
+Once we have created our model,
+
+00:03:00.950 --> 00:03:04.730
+we can use the.summary method to print out
+
+00:03:04.730 --> 00:03:09.575
+some information about our models architecture and its parameters.
+
+00:03:09.575 --> 00:03:12.545
+Here we can see the name of our model,
+
+00:03:12.545 --> 00:03:14.930
+which in this case is sequential.
+
+00:03:14.930 --> 00:03:20.180
+The first column indicates the type of layers that we have in our model.
+
+00:03:20.180 --> 00:03:25.370
+Here we can see that we have three layers where the first layer is a flattened layer,
+
+00:03:25.370 --> 00:03:28.765
+and the second and third layer, are dense layers.
+
+00:03:28.765 --> 00:03:32.945
+Notice that the second dense layer is named dense
+
+00:03:32.945 --> 00:03:37.415
+underscore one to differentiate it from the first dense layer.
+
+00:03:37.415 --> 00:03:42.800
+The second column shows us the output shape of each of our layers.
+
+00:03:42.800 --> 00:03:47.770
+Notice that they all have the word none in their first dimension.
+
+00:03:47.770 --> 00:03:54.590
+Here, the word none indicates that these layers can accept batches of any size.
+
+00:03:54.590 --> 00:03:59.125
+Remember that the batch size must always be a positive integer.
+
+00:03:59.125 --> 00:04:04.880
+The third column shows us the number of parameters in each of our layers.
+
+00:04:04.880 --> 00:04:10.690
+The parameters here, refer to the number of weights and biases in each of our layers.
+
+00:04:10.690 --> 00:04:16.030
+Finally, we can see the total number of parameters in our neural network.
+
+00:04:16.030 --> 00:04:18.730
+We also see how many of those parameters are
+
+00:04:18.730 --> 00:04:22.405
+trainable and how many of those parameters are non-trainable.
+
+00:04:22.405 --> 00:04:26.755
+In this case, we see that all the parameters are trainable,
+
+00:04:26.755 --> 00:04:32.245
+which means all our weights and biases need to be tuned or trained.
+
+00:04:32.245 --> 00:04:38.260
+Now it's your turn to build a neural network using TensorFlow and Keras.
+
+00:04:38.260 --> 00:04:44.205
+In this exercise, you're going to build a neural network with these four layers.
+
+00:04:44.205 --> 00:04:47.930
+Now, is a good time to pause the video and try out
+
+00:04:47.930 --> 00:04:52.770
+this exercise for yourself before I show you my solution.
+
+00:04:53.080 --> 00:04:57.095
+Here is my solution to this exercise.
+
+00:04:57.095 --> 00:05:00.365
+As you can see, everything is the same as before,
+
+00:05:00.365 --> 00:05:02.390
+except that now we're using
+
+00:05:02.390 --> 00:05:08.090
+the RELU activation function for the first and second hidden layers.
+
+00:05:08.090 --> 00:05:11.970
+Here we can see a summary of this model.
+

@@ -1,0 +1,292 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.060
+When we build a model with Keras,
+
+00:00:03.060 --> 00:00:08.260
+it automatically initializes its weights and biases.
+
+00:00:08.260 --> 00:00:14.970
+The weights and biases are tensors that are attached to each of the layers of our model.
+
+00:00:14.970 --> 00:00:21.645
+We can get all the weights and biases from our model by using the Get weights method.
+
+00:00:21.645 --> 00:00:28.935
+This method returns a list that contains the weights and biases as NumPy arrays.
+
+00:00:28.935 --> 00:00:33.735
+So let's see how many NumPy arrays we have in our list.
+
+00:00:33.735 --> 00:00:38.970
+Here we can see that we have four NumPy arrays in our list.
+
+00:00:38.970 --> 00:00:42.240
+So let's check if this makes sense.
+
+00:00:42.240 --> 00:00:44.810
+If we take a look at our model,
+
+00:00:44.810 --> 00:00:48.035
+we can see that it has three layers,
+
+00:00:48.035 --> 00:00:51.440
+but the first layer has zero parameters.
+
+00:00:51.440 --> 00:00:57.035
+This means that the first layer has no weights and no biases.
+
+00:00:57.035 --> 00:01:02.605
+However, the second and third layers do have weights and biases.
+
+00:01:02.605 --> 00:01:07.625
+Since the weights and biases are saved in separate arrays,
+
+00:01:07.625 --> 00:01:11.480
+then we should have two NumPy arrays from
+
+00:01:11.480 --> 00:01:16.235
+the second layer and two NumPy arrays from the third layer.
+
+00:01:16.235 --> 00:01:19.895
+This gives us a total of four Numpy arrays.
+
+00:01:19.895 --> 00:01:26.740
+Therefore, it makes sense that our list contains four NumPy arrays.
+
+00:01:26.740 --> 00:01:29.825
+Now if we print this list,
+
+00:01:29.825 --> 00:01:32.765
+we can see that it has some arrays.
+
+00:01:32.765 --> 00:01:36.920
+However, it is not clearly indicated which
+
+00:01:36.920 --> 00:01:41.555
+arrays correspond to the weights and which ones correspond to the biases,
+
+00:01:41.555 --> 00:01:44.790
+nor to which layers do they belong to.
+
+00:01:44.790 --> 00:01:48.530
+We can get the weights and biases for
+
+00:01:48.530 --> 00:01:52.615
+a specific layer in our network by using these statements.
+
+00:01:52.615 --> 00:02:00.185
+First, we use the Get layer method to select a specific layer in our network.
+
+00:02:00.185 --> 00:02:06.935
+Here we have chosen the first layer by using the keyword index equals zero.
+
+00:02:06.935 --> 00:02:09.185
+Once we have chosen our layer,
+
+00:02:09.185 --> 00:02:13.280
+we can use the Get weights method to get a list that
+
+00:02:13.280 --> 00:02:17.930
+contains both the weights and biases of our chosen layer.
+
+00:02:17.930 --> 00:02:20.420
+To just get the weights of this layer,
+
+00:02:20.420 --> 00:02:25.370
+we choose the first element of this list by using the index equals zero.
+
+00:02:25.370 --> 00:02:29.240
+Similarly, to only get the biases from this layer,
+
+00:02:29.240 --> 00:02:34.310
+we select the second element of our list by using the index equals one.
+
+00:02:34.310 --> 00:02:38.600
+Here we have chosen the first layer of our model.
+
+00:02:38.600 --> 00:02:42.650
+However, we should note that in this particular case,
+
+00:02:42.650 --> 00:02:46.460
+our first layer happens to be a flattened layer.
+
+00:02:46.460 --> 00:02:50.060
+Since this layer only flattens our images,
+
+00:02:50.060 --> 00:02:52.700
+it has no waits or biases.
+
+00:02:52.700 --> 00:02:57.860
+Therefore the Get weights method will return an empty list,
+
+00:02:57.860 --> 00:03:01.430
+which means that when we try to get the first or second elements,
+
+00:03:01.430 --> 00:03:03.265
+we will get an error.
+
+00:03:03.265 --> 00:03:07.435
+So when you're getting the weights and biases from each layer,
+
+00:03:07.435 --> 00:03:12.215
+you should always check first whether the layer has any weights or biases at all.
+
+00:03:12.215 --> 00:03:16.270
+Alternatively, we can also get the weights and biases
+
+00:03:16.270 --> 00:03:21.160
+for a specific layer in our model by using the layers method.
+
+00:03:21.160 --> 00:03:24.475
+The layers method returns a list where
+
+00:03:24.475 --> 00:03:29.090
+each element in this list corresponds to a single layer of our network.
+
+00:03:29.090 --> 00:03:35.005
+We can get the weights and biases of each of these layers by using a four loop,
+
+00:03:35.005 --> 00:03:36.565
+as we have done here.
+
+00:03:36.565 --> 00:03:41.425
+Here we get the weights and the biases of the current layer,
+
+00:03:41.425 --> 00:03:47.530
+but not before checking whether the current layer has any weights or any biases at all.
+
+00:03:47.530 --> 00:03:52.040
+Again, this is to prevent errors as we mentioned previously.
+
+00:03:52.040 --> 00:03:55.970
+Once we have the weights and biases of the current layer,
+
+00:03:55.970 --> 00:03:58.670
+we make some print statements.
+
+00:03:58.670 --> 00:04:05.045
+The first print statement tells us the current layers, number and name.
+
+00:04:05.045 --> 00:04:12.635
+Then we print the NumPy arrays containing the weights and biases of the current layer.
+
+00:04:12.635 --> 00:04:16.670
+Finally, these last spring statement prints
+
+00:04:16.670 --> 00:04:21.185
+the total number of weights and biases that we have in the current layer.
+
+00:04:21.185 --> 00:04:23.930
+This corresponds to the number of elements in
+
+00:04:23.930 --> 00:04:28.245
+the weights array and the number of elements in the biases array.
+
+00:04:28.245 --> 00:04:31.555
+We also print the following statement.
+
+00:04:31.555 --> 00:04:34.705
+This layer has no weights or biases.
+
+00:04:34.705 --> 00:04:37.030
+If they Get weights,
+
+00:04:37.030 --> 00:04:39.575
+method returns an empty list.
+
+00:04:39.575 --> 00:04:42.450
+Let's look at the output of this cell.
+
+00:04:42.450 --> 00:04:48.955
+Here we see that the first layer has index zero and it has the name flattened.
+
+00:04:48.955 --> 00:04:53.355
+We also see that this layer has no weights and biases.
+
+00:04:53.355 --> 00:04:57.190
+This is correct because our first layer only flattens
+
+00:04:57.190 --> 00:05:01.665
+the images and therefore has no weights and biases.
+
+00:05:01.665 --> 00:05:06.620
+Our second layer has the Index 1 and has the name dense.
+
+00:05:06.620 --> 00:05:09.760
+This layer, those have weights and biases.
+
+00:05:09.760 --> 00:05:13.350
+Here we can see the NumPy array that holds our weights.
+
+00:05:13.350 --> 00:05:17.115
+Here we can see the NumPy array that holds our biases.
+
+00:05:17.115 --> 00:05:22.720
+Here we see the total number of weights and the total number of biases in these arrays.
+
+00:05:22.720 --> 00:05:29.155
+The third layer has Index 2 and has the name dense underscore one.
+
+00:05:29.155 --> 00:05:32.255
+This layer also has weights and biases,
+
+00:05:32.255 --> 00:05:35.360
+and we can see the corresponding NumPy arrays here.
+
+00:05:35.360 --> 00:05:40.945
+We also see that total number of weights and total number of biases in these arrays.
+
+00:05:40.945 --> 00:05:47.770
+If we look at the values of the weights and biases of each layer over network,
+
+00:05:47.770 --> 00:05:53.885
+we can see that Keras initializes the biases to zero,
+
+00:05:53.885 --> 00:05:56.400
+as we can see here.
+
+00:05:56.480 --> 00:06:03.260
+We can also see that Keras initializes the weights through small numbers around zero.
+
+00:06:03.260 --> 00:06:09.460
+I also wanted to point out that the name of our layers, such as flatten,
+
+00:06:09.460 --> 00:06:17.435
+dense and dense underscore one are the same names that appear on our model.
+
+00:06:17.435 --> 00:06:20.650
+Here we see the names flatten,
+
+00:06:20.650 --> 00:06:24.780
+dense, and dense underscore one.
+
+00:06:24.780 --> 00:06:29.780
+Also, if you look at the number of parameters in the second layer,
+
+00:06:29.780 --> 00:06:35.299
+you see that he has 200,960 parameters.
+
+00:06:35.299 --> 00:06:39.350
+If you notice this number equals the total number
+
+00:06:39.350 --> 00:06:43.330
+of weights plus the total number of biases we printed here.
+
+00:06:43.330 --> 00:06:47.930
+Similarly, if we look at the last layer of our network,
+
+00:06:47.930 --> 00:06:54.365
+we can see that he has 2,560 weights and 10 biases.
+
+00:06:54.365 --> 00:07:01.150
+This means that this layer has 2,570 total parameters.
+
+00:07:01.150 --> 00:07:03.830
+If we look at our model summary,
+
+00:07:03.830 --> 00:07:08.070
+we can see that it matches the number of parameters given here.
+

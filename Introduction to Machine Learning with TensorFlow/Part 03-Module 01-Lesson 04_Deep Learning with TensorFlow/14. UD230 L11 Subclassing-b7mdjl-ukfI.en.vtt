@@ -1,0 +1,508 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:05.670
+Great. So now you know how to create models with TensorFlow and Keras,
+
+00:00:05.670 --> 00:00:07.380
+and make predictions with them.
+
+00:00:07.380 --> 00:00:10.440
+What I want to do now is to go over
+
+00:00:10.440 --> 00:00:15.180
+two other ways that you can create models with TensorFlow and Keras.
+
+00:00:15.180 --> 00:00:17.920
+One method involves subclassing,
+
+00:00:17.920 --> 00:00:21.145
+and the other one involves using the add method.
+
+00:00:21.145 --> 00:00:24.770
+So let's start by looking at subclassing.
+
+00:00:24.770 --> 00:00:28.460
+First off, why should we care about subclassing?
+
+00:00:28.460 --> 00:00:36.260
+Well, the main reason is that the tf.keras.Sequential model that we've just
+
+00:00:36.260 --> 00:00:39.680
+learned about consist of a simple stack of
+
+00:00:39.680 --> 00:00:44.140
+layers that cannot be used to create arbitrary models.
+
+00:00:44.140 --> 00:00:48.305
+So if we want to build fully customizable models,
+
+00:00:48.305 --> 00:00:55.180
+we need to create them by subclassing the tf.keras.Model class.
+
+00:00:55.180 --> 00:00:57.125
+Let's see an example.
+
+00:00:57.125 --> 00:01:01.190
+In this example, we're going to create the same model we
+
+00:01:01.190 --> 00:01:05.350
+created before so that you can compare both methods.
+
+00:01:05.350 --> 00:01:07.965
+To create a model using subclassing,
+
+00:01:07.965 --> 00:01:14.750
+we begin by creating a class that inherits from the tf.keras.Model class.
+
+00:01:14.750 --> 00:01:18.079
+Here, we've called our class network,
+
+00:01:18.079 --> 00:01:21.840
+but the actual name that you use for your class doesn't matter.
+
+00:01:21.840 --> 00:01:24.425
+You are free to call it whatever you want.
+
+00:01:24.425 --> 00:01:26.810
+The important thing to remember, however,
+
+00:01:26.810 --> 00:01:31.970
+is that you must always inherit from the tf.keras.Model class.
+
+00:01:31.970 --> 00:01:35.635
+The next step is to define our init method.
+
+00:01:35.635 --> 00:01:39.410
+Here, we have defined our init method so that it takes
+
+00:01:39.410 --> 00:01:43.520
+in as argument the number of classes in our dataset.
+
+00:01:43.520 --> 00:01:49.615
+You can also see that we have set the default value of this parameter to two.
+
+00:01:49.615 --> 00:01:53.855
+However, you are free to choose the default value that you like.
+
+00:01:53.855 --> 00:01:59.200
+This number will also determine the number of units in our output layer.
+
+00:01:59.200 --> 00:02:04.170
+So by default, this neural network will output two values.
+
+00:02:04.170 --> 00:02:09.090
+Next, we call super to refer to the parent class,
+
+00:02:09.090 --> 00:02:12.675
+and we're adding a call to the parent's init method.
+
+00:02:12.675 --> 00:02:17.735
+Just briefly for those who might be unfamiliar with how classes work,
+
+00:02:17.735 --> 00:02:21.035
+all classes have an init method.
+
+00:02:21.035 --> 00:02:26.185
+This method is always executed when the class is being initiated.
+
+00:02:26.185 --> 00:02:30.470
+The init method is used to assign values to object properties,
+
+00:02:30.470 --> 00:02:36.140
+or perform other operations that are necessary to do when the object is being created.
+
+00:02:36.140 --> 00:02:43.700
+So you need to have an init method and a super statement for your model to work.
+
+00:02:43.700 --> 00:02:47.420
+Next, we set the number of classes as
+
+00:02:47.420 --> 00:02:52.160
+an attribute of the class instance so that we can access it later.
+
+00:02:52.160 --> 00:02:55.870
+The next step is to create the layers of our network.
+
+00:02:55.870 --> 00:03:00.155
+The layers are created inside the init method,
+
+00:03:00.155 --> 00:03:05.560
+and are also set as attributes of the class instance as we can see here.
+
+00:03:05.560 --> 00:03:09.110
+Each particular layer in a network must have
+
+00:03:09.110 --> 00:03:11.570
+a unique name because we will use
+
+00:03:11.570 --> 00:03:15.455
+these names to reference the layers later in the forward pass.
+
+00:03:15.455 --> 00:03:18.610
+These are the names we've chosen for our layers.
+
+00:03:18.610 --> 00:03:20.635
+These names are arbitrary,
+
+00:03:20.635 --> 00:03:23.825
+and you can choose to name your layers however you like,
+
+00:03:23.825 --> 00:03:26.675
+but you have to be careful that the name you choose
+
+00:03:26.675 --> 00:03:30.005
+doesn't conflict with the name of an internal variable.
+
+00:03:30.005 --> 00:03:34.175
+If you happen to choose a name that is restricted, you will get an error.
+
+00:03:34.175 --> 00:03:38.195
+These layers are created in exactly the same way as we did
+
+00:03:38.195 --> 00:03:43.660
+previously by using the tf.keras.layers module.
+
+00:03:43.660 --> 00:03:47.930
+Also, notice that we've set the number of units in
+
+00:03:47.930 --> 00:03:50.600
+our output layer equal to the number of
+
+00:03:50.600 --> 00:03:54.365
+classes that was passed as an argument in the init method.
+
+00:03:54.365 --> 00:03:56.870
+Also notice that in this case,
+
+00:03:56.870 --> 00:04:00.125
+it is not necessary to specify the shape
+
+00:04:00.125 --> 00:04:04.000
+of the input tensor in the first layer of our network.
+
+00:04:04.000 --> 00:04:06.980
+We will still need to specify the shape of our input tensor,
+
+00:04:06.980 --> 00:04:11.170
+however, but we will do that later when we build our model.
+
+00:04:11.170 --> 00:04:14.975
+The next step is to define our forward pass.
+
+00:04:14.975 --> 00:04:17.915
+We do this by creating a call method.
+
+00:04:17.915 --> 00:04:20.840
+This call method is going to determine how
+
+00:04:20.840 --> 00:04:24.575
+our input tensor is passed through our network.
+
+00:04:24.575 --> 00:04:27.470
+Let's go through our forward pass in detail.
+
+00:04:27.470 --> 00:04:32.470
+First, the call method takes in as argument our input tensor.
+
+00:04:32.470 --> 00:04:36.230
+It then takes that input tensor and feeds
+
+00:04:36.230 --> 00:04:41.000
+it to the input layer that we've defined in the init method.
+
+00:04:41.000 --> 00:04:46.195
+Then the output of this operation is saved into the variable x.
+
+00:04:46.195 --> 00:04:48.665
+Next, we take x,
+
+00:04:48.665 --> 00:04:51.500
+which holds the output of our input layer,
+
+00:04:51.500 --> 00:04:57.460
+and pass it through our hidden layer as we have defined it in the init method.
+
+00:04:57.460 --> 00:05:03.015
+Then we replace the value of x with the output of our hidden layer.
+
+00:05:03.015 --> 00:05:09.560
+Finally, we take the output of our hidden layer and we pass it to our output layer,
+
+00:05:09.560 --> 00:05:12.240
+and then we return the result.
+
+00:05:12.240 --> 00:05:15.345
+This x holds the output of our network.
+
+00:05:15.345 --> 00:05:18.530
+The shape of x will be determined by
+
+00:05:18.530 --> 00:05:23.885
+the batch size and the number of classes we pass as an argument to the init method.
+
+00:05:23.885 --> 00:05:26.480
+After we have created our class,
+
+00:05:26.480 --> 00:05:29.920
+the next step is to create our model object.
+
+00:05:29.920 --> 00:05:31.860
+But before we move on,
+
+00:05:31.860 --> 00:05:34.965
+I just wanted to point out a few things.
+
+00:05:34.965 --> 00:05:38.015
+First off, even though we have defined
+
+00:05:38.015 --> 00:05:42.635
+our layers in the same order in which they appear in the call method,
+
+00:05:42.635 --> 00:05:45.025
+this doesn't have to be the case.
+
+00:05:45.025 --> 00:05:47.940
+Therefore, you can define all the layers you
+
+00:05:47.940 --> 00:05:51.085
+want to put in your neural network in the init method
+
+00:05:51.085 --> 00:05:53.480
+without having to worry about putting them in
+
+00:05:53.480 --> 00:05:57.860
+their right order because all that will be determined in the call method.
+
+00:05:57.860 --> 00:06:01.955
+We put them in the same order in this example just for clarity.
+
+00:06:01.955 --> 00:06:05.660
+The last thing I want to point out is that
+
+00:06:05.660 --> 00:06:10.925
+the call method is really where the sequential and the subclassing methods differ.
+
+00:06:10.925 --> 00:06:16.705
+The call method is what allows subclassing to make fully customizable models.
+
+00:06:16.705 --> 00:06:19.025
+This is because in the call method,
+
+00:06:19.025 --> 00:06:22.100
+we can specify all the operations we want to perform on
+
+00:06:22.100 --> 00:06:27.670
+our tensors and the order in which these operations are going to take place.
+
+00:06:27.670 --> 00:06:33.695
+In this example, we've just perform the same operations that a sequential model will do.
+
+00:06:33.695 --> 00:06:39.520
+That is, we're passing our tensors sequentially through the layers of our network.
+
+00:06:39.520 --> 00:06:43.025
+However, noticed that we could have performed
+
+00:06:43.025 --> 00:06:47.365
+any operation we wanted on our tensors at any point during our code.
+
+00:06:47.365 --> 00:06:52.430
+For example, we could have chosen to multiply the output of
+
+00:06:52.430 --> 00:06:57.790
+the hidden layer by two before feeding it to the output layer,
+
+00:06:57.790 --> 00:07:00.770
+or we could have chosen to feed
+
+00:07:00.770 --> 00:07:05.585
+that tensor to another hidden layer before feeding it to our output layer.
+
+00:07:05.585 --> 00:07:09.280
+As you can see, the possibilities are endless.
+
+00:07:09.280 --> 00:07:10.685
+So in the call method,
+
+00:07:10.685 --> 00:07:13.520
+you can perform any operations that you like.
+
+00:07:13.520 --> 00:07:18.520
+So it gives you great flexibility to experiment and try out new things.
+
+00:07:18.520 --> 00:07:22.925
+For example, you could have chosen to divide your tensor in two,
+
+00:07:22.925 --> 00:07:25.385
+and then pass one half through one layer,
+
+00:07:25.385 --> 00:07:27.740
+and the other half through another layer,
+
+00:07:27.740 --> 00:07:31.285
+and then join their outputs just to see what happens.
+
+00:07:31.285 --> 00:07:35.435
+This flexibility is what gives subclassing its power,
+
+00:07:35.435 --> 00:07:38.735
+but it comes at the risk of making more user errors,
+
+00:07:38.735 --> 00:07:40.555
+so you use it with caution.
+
+00:07:40.555 --> 00:07:43.685
+Now that we have created the class for our model,
+
+00:07:43.685 --> 00:07:47.750
+the next step is to create a model object from our class.
+
+00:07:47.750 --> 00:07:55.620
+Here, we're creating our model object subclassed_model from our network class.
+
+00:07:55.620 --> 00:08:00.120
+Since we have 10 classes in our MNIST dataset,
+
+00:08:00.120 --> 00:08:07.445
+we pass 10 to our network class so that it can create a model with 10 output units.
+
+00:08:07.445 --> 00:08:12.620
+At this point, our model doesn't have any weights or biases because as you might
+
+00:08:12.620 --> 00:08:18.185
+remember we didn't provide the shape of our input tensor when we created our class.
+
+00:08:18.185 --> 00:08:22.715
+Therefore, in order to initialize the weights and biases of our model,
+
+00:08:22.715 --> 00:08:26.435
+we need to build it by using the build method.
+
+00:08:26.435 --> 00:08:30.560
+The build method takes as argument the shape of our input tensor,
+
+00:08:30.560 --> 00:08:32.575
+including the batch size.
+
+00:08:32.575 --> 00:08:35.450
+Here, we have indicated that we're going to allow
+
+00:08:35.450 --> 00:08:38.890
+batches of any size by using the keyword None.
+
+00:08:38.890 --> 00:08:44.300
+We've also specified that our images are 28 by 28 by 1.
+
+00:08:44.300 --> 00:08:47.470
+Finally, we print out our model summary.
+
+00:08:47.470 --> 00:08:50.675
+As you can see, it has the same architecture
+
+00:08:50.675 --> 00:08:53.900
+and the same number of parameters as our sequential model.
+
+00:08:53.900 --> 00:08:57.800
+Notice that the name of the layers do not correspond to
+
+00:08:57.800 --> 00:09:02.845
+the names we gave our layers in the init method when we created our class.
+
+00:09:02.845 --> 00:09:06.075
+This is because the first time you create a model,
+
+00:09:06.075 --> 00:09:11.535
+tf.keras creates a graph and it adds subsequent models to the same graph,
+
+00:09:11.535 --> 00:09:14.945
+and labels each of the layers in the graph sequentially.
+
+00:09:14.945 --> 00:09:19.235
+So these names correspond to the name of the layers in the graph.
+
+00:09:19.235 --> 00:09:23.270
+That's it. That's how you create a model using subclassing.
+
+00:09:23.270 --> 00:09:27.515
+Now, it's your turn to build the network using subclassing.
+
+00:09:27.515 --> 00:09:29.810
+In this exercise, you're going to build
+
+00:09:29.810 --> 00:09:33.305
+the same network you built in the previous exercise,
+
+00:09:33.305 --> 00:09:35.830
+but now using the subclassing method.
+
+00:09:35.830 --> 00:09:38.540
+This is a good time to pause the video and try out
+
+00:09:38.540 --> 00:09:42.570
+this exercise yourself before I show you my solution.
+
+00:09:43.930 --> 00:09:47.675
+This is my solution to this exercise.
+
+00:09:47.675 --> 00:09:50.035
+Here, I created my class,
+
+00:09:50.035 --> 00:09:56.440
+then I created my init method with a default value of 10 for the number of classes.
+
+00:09:56.440 --> 00:09:59.184
+Here, I create my layers,
+
+00:09:59.184 --> 00:10:04.110
+and here I create my call method defining the forward pass.
+
+00:10:04.110 --> 00:10:06.985
+Then I create a model object,
+
+00:10:06.985 --> 00:10:10.605
+then I build my model to initialize my weights and biases,
+
+00:10:10.605 --> 00:10:13.210
+and finally I print out my model summary.
+
+00:10:13.210 --> 00:10:15.100
+Just like with sequential models,
+
+00:10:15.100 --> 00:10:19.855
+we can also take a look at the weights and biases of each layer of our subclass models.
+
+00:10:19.855 --> 00:10:24.780
+In this case, we usually use the name we gave to each layer in the init method.
+
+00:10:24.780 --> 00:10:29.780
+For example, here we're getting the weights and the biases of
+
+00:10:29.780 --> 00:10:34.655
+the model we created in our previous exercise from the first hidden layer,
+
+00:10:34.655 --> 00:10:36.925
+which is named hidden_1.
+
+00:10:36.925 --> 00:10:42.455
+As usual, we use the get weights method and index zero to get the weights,
+
+00:10:42.455 --> 00:10:45.020
+and index one to get the biases.
+
+00:10:45.020 --> 00:10:48.845
+Here, we see the weights and biases of this layer.
+
+00:10:48.845 --> 00:10:56.089
+We also see that this layer has a total number of 100,352 weights and 128 biases.
+
+00:10:56.089 --> 00:10:58.790
+Finally, we can make predictions with
+
+00:10:58.790 --> 00:11:03.920
+our subclass models in exactly the same way as we did for our sequential models.
+
+00:11:03.920 --> 00:11:07.560
+So this part remains the same as before.
+

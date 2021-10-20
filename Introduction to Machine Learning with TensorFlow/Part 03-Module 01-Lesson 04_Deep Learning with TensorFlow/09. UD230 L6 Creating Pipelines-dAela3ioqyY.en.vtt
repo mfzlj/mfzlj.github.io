@@ -1,0 +1,361 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.820
+We are now ready to create our pipeline.
+
+00:00:02.820 --> 00:00:06.030
+A pipeline is a set of transformations that we apply to
+
+00:00:06.030 --> 00:00:10.595
+our data so that it can be fed efficiently to a neural network.
+
+00:00:10.595 --> 00:00:13.525
+Let's take a look at the pipeline we're going to use.
+
+00:00:13.525 --> 00:00:16.740
+The first item in our pipeline is our training set.
+
+00:00:16.740 --> 00:00:18.870
+What will follow is a series of
+
+00:00:18.870 --> 00:00:22.460
+transformations we're going to apply to the images in our training set.
+
+00:00:22.460 --> 00:00:25.980
+The first operation we're going to use is called catch.
+
+00:00:25.980 --> 00:00:30.780
+That catch method moves our dataset into memory for quick access.
+
+00:00:30.780 --> 00:00:36.480
+Note that you should only use catch if you have enough memory to fit your dataset.
+
+00:00:36.480 --> 00:00:41.160
+Here, we're using the MNIST dataset which is pretty small.
+
+00:00:41.160 --> 00:00:45.004
+So you can comfortably fit it into the memory of most computers.
+
+00:00:45.004 --> 00:00:48.230
+However, other datasets can be gigabytes in
+
+00:00:48.230 --> 00:00:52.340
+size and too large to fit in the memory you have available on your device.
+
+00:00:52.340 --> 00:00:54.095
+So before you use catch,
+
+00:00:54.095 --> 00:00:57.200
+make sure you have enough memory on your computer to feed your data,
+
+00:00:57.200 --> 00:01:00.680
+otherwise, your program will crash when it runs out of memory.
+
+00:01:00.680 --> 00:01:04.355
+The second transformation we're going to apply is called shuffle.
+
+00:01:04.355 --> 00:01:07.850
+In this case, the shuffle transformation randomly shuffles
+
+00:01:07.850 --> 00:01:11.470
+the images in our dataset before being fed into one network.
+
+00:01:11.470 --> 00:01:15.395
+This is to prevent a network for memorizing the order of our data.
+
+00:01:15.395 --> 00:01:17.750
+Shuffle takes one argument,
+
+00:01:17.750 --> 00:01:20.545
+which represents the number of images we want to shuffle.
+
+00:01:20.545 --> 00:01:22.790
+This is also called the buffer size.
+
+00:01:22.790 --> 00:01:26.480
+This is a free parameter that you can choose to shuffle all the images
+
+00:01:26.480 --> 00:01:30.410
+in your dataset or only a fraction of them as we have done here.
+
+00:01:30.410 --> 00:01:33.350
+The reason we're not shuffling the entire dataset,
+
+00:01:33.350 --> 00:01:35.959
+is just to increase our training efficiency,
+
+00:01:35.959 --> 00:01:39.805
+since the shuffle transformation is performed at every iteration.
+
+00:01:39.805 --> 00:01:44.390
+Therefore, if you shuffle all the 60,000 images at every iteration,
+
+00:01:44.390 --> 00:01:46.190
+then this will increase your training time.
+
+00:01:46.190 --> 00:01:50.960
+So we're only shuffling a random subset of images from the training set.
+
+00:01:50.960 --> 00:01:53.225
+As with a lot of these transformations,
+
+00:01:53.225 --> 00:01:55.790
+you can always experiment with different parameters
+
+00:01:55.790 --> 00:01:59.135
+until you get the best balance between accuracy and speed.
+
+00:01:59.135 --> 00:02:02.110
+Next, we batch our images.
+
+00:02:02.110 --> 00:02:06.485
+This transformation takes in the batch size as an argument.
+
+00:02:06.485 --> 00:02:11.900
+The batch size is the number of images we pass through our network in every iteration,
+
+00:02:11.900 --> 00:02:16.015
+we feed our data into our network in batches for efficiency.
+
+00:02:16.015 --> 00:02:22.295
+Here, we have chosen a batch size of 64 but other values can also be used.
+
+00:02:22.295 --> 00:02:24.080
+Again, you can experiment with
+
+00:02:24.080 --> 00:02:28.315
+different batch sizes to see which value optimizes your training time.
+
+00:02:28.315 --> 00:02:32.660
+Next, we use a map transformation to apply
+
+00:02:32.660 --> 00:02:36.980
+the normalized function we have defined here to our images.
+
+00:02:36.980 --> 00:02:38.435
+As you might remember,
+
+00:02:38.435 --> 00:02:43.220
+the pixel values in our images ranged 0-255.
+
+00:02:43.220 --> 00:02:48.520
+Normalizing the pixel values in our images so that they are in the range from 0-1,
+
+00:02:48.520 --> 00:02:52.250
+helps the algorithms used during training to converge easier.
+
+00:02:52.250 --> 00:02:56.390
+Consequently, we created this normalized function that takes
+
+00:02:56.390 --> 00:03:00.575
+in our images and divides the pixel values by 255.
+
+00:03:00.575 --> 00:03:05.810
+We also convert the type of our tensors from uint8 to
+
+00:03:05.810 --> 00:03:12.145
+tf float 32 to represent 32-bit single precision floating point numbers.
+
+00:03:12.145 --> 00:03:16.775
+Now, the last operation we're going to perform is called prefetch.
+
+00:03:16.775 --> 00:03:20.570
+The prefetch method starts preparing the next batch of data,
+
+00:03:20.570 --> 00:03:23.305
+while the current batch is being processed.
+
+00:03:23.305 --> 00:03:26.600
+This way, we optimize our pipeline by eliminating
+
+00:03:26.600 --> 00:03:30.230
+the time the processors have to wait before getting new data.
+
+00:03:30.230 --> 00:03:34.445
+We should note that many of these operations are commutative.
+
+00:03:34.445 --> 00:03:39.955
+However, the ordering of certain transformations has performance implications.
+
+00:03:39.955 --> 00:03:43.955
+For example, the map transformation has an overhead
+
+00:03:43.955 --> 00:03:48.595
+related to the scheduling an executing the user-defined function.
+
+00:03:48.595 --> 00:03:51.830
+Normally, these overhead is small compared to the amount
+
+00:03:51.830 --> 00:03:55.100
+of computation performed by the function you defined.
+
+00:03:55.100 --> 00:03:58.625
+However, if the function you define does little work,
+
+00:03:58.625 --> 00:04:01.075
+the overhead will dominate the total time.
+
+00:04:01.075 --> 00:04:06.185
+For example, let's suppose every time we call the map operation,
+
+00:04:06.185 --> 00:04:09.125
+we incurred in an overhead of one minute,
+
+00:04:09.125 --> 00:04:14.405
+but that our user-defined function only took one second to complete.
+
+00:04:14.405 --> 00:04:18.245
+Therefore, if we call the map operation on three images,
+
+00:04:18.245 --> 00:04:21.590
+it will take three minutes and three seconds to complete,
+
+00:04:21.590 --> 00:04:24.830
+out of which, three minutes are just overhead.
+
+00:04:24.830 --> 00:04:26.765
+This is very inefficient.
+
+00:04:26.765 --> 00:04:30.110
+In these cases, it is recommended that we write
+
+00:04:30.110 --> 00:04:33.785
+functions that can perform operations on batches of images.
+
+00:04:33.785 --> 00:04:38.030
+That way we can batch our images before calling the map transformation.
+
+00:04:38.030 --> 00:04:42.715
+Therefore, if we take our three images and put them in a single batch,
+
+00:04:42.715 --> 00:04:47.300
+we will only have to call the map operation once instead of three times,
+
+00:04:47.300 --> 00:04:50.945
+incurring in an overhead of only one minute, instead of three.
+
+00:04:50.945 --> 00:04:54.280
+If you notice, this is what we have done here.
+
+00:04:54.280 --> 00:05:00.500
+We've applied batch before map because our user-defined function does very little work.
+
+00:05:00.500 --> 00:05:03.440
+Again, we've done this for efficiency.
+
+00:05:03.440 --> 00:05:06.185
+To read more about pipeline performance,
+
+00:05:06.185 --> 00:05:08.500
+make sure you check out these links.
+
+00:05:08.500 --> 00:05:11.355
+Now, let's take a look at training batches.
+
+00:05:11.355 --> 00:05:14.209
+Training batches is going to be an iterator,
+
+00:05:14.209 --> 00:05:16.550
+just like our original training set.
+
+00:05:16.550 --> 00:05:21.170
+That means that we can use a for loop to go through the batches produced by our pipeline.
+
+00:05:21.170 --> 00:05:25.500
+Let's take a look at one of the images produced by our training pipeline.
+
+00:05:25.500 --> 00:05:28.810
+Again, we're going to use a for loop to go
+
+00:05:28.810 --> 00:05:32.495
+through our training batches and we're going to use the take method.
+
+00:05:32.495 --> 00:05:34.555
+However, in this case,
+
+00:05:34.555 --> 00:05:37.749
+since training batches contains batches of images,
+
+00:05:37.749 --> 00:05:43.010
+the take 1 method will return a single batch with 64 images.
+
+00:05:43.010 --> 00:05:46.810
+So now we're looping through batches of images and labels,
+
+00:05:46.810 --> 00:05:49.405
+instead of single images and labels.
+
+00:05:49.405 --> 00:05:52.370
+These batches are still tensors.
+
+00:05:52.370 --> 00:05:59.470
+We can see that their are values have a dtype of float 32 instead of uint8 as before.
+
+00:05:59.470 --> 00:06:02.050
+This is because we changed the dtype in
+
+00:06:02.050 --> 00:06:04.895
+the normalized function that we used in our pipeline.
+
+00:06:04.895 --> 00:06:10.960
+We can also see that our batch tensors have a shape of 64 by 28,
+
+00:06:10.960 --> 00:06:12.715
+by 28, by 1.
+
+00:06:12.715 --> 00:06:14.220
+The first number here,
+
+00:06:14.220 --> 00:06:16.160
+represents our batch size.
+
+00:06:16.160 --> 00:06:22.580
+So this tensor holds 64 images that are 28 by 28, by 1.
+
+00:06:22.580 --> 00:06:26.150
+Similarly, the label batch is now a tensor with
+
+00:06:26.150 --> 00:06:31.825
+64 numbers that represent the labels for each of the 64 images in her batch.
+
+00:06:31.825 --> 00:06:36.260
+Now, let's plot one of the images produced by our pipeline.
+
+00:06:36.260 --> 00:06:38.195
+The steps are the same as before,
+
+00:06:38.195 --> 00:06:42.200
+except that now we have batches of images instead of just a single image,
+
+00:06:42.200 --> 00:06:43.765
+as we mentioned earlier.
+
+00:06:43.765 --> 00:06:49.285
+Here, we convert our image batch to a NumPy array by using the NumPy method.
+
+00:06:49.285 --> 00:06:56.060
+Then we squeeze it so that we can shape it to 64 by 28, by 28.
+
+00:06:56.060 --> 00:07:01.195
+We also convert our label batch to a NumPy array using the NumPy method.
+
+00:07:01.195 --> 00:07:06.160
+Images is now a NumPy array that contains 64 images.
+
+00:07:06.160 --> 00:07:09.380
+Therefore, in order to plot the first image,
+
+00:07:09.380 --> 00:07:13.130
+we have to select it by setting the index to zero.
+
+00:07:13.130 --> 00:07:18.085
+So this will plot the first image in our batch and we can see it here.
+
+00:07:18.085 --> 00:07:22.324
+As we can see, the image is still 28 by 28,
+
+00:07:22.324 --> 00:07:29.550
+but now the range of pixel values go from zero to one instead of zero to 255.
+

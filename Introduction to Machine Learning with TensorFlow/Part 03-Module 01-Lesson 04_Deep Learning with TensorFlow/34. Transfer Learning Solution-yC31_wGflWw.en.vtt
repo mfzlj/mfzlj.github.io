@@ -1,0 +1,76 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:02.085
+So again, here's my solution.
+
+00:00:02.085 --> 00:00:04.030
+We've done this a few times already.
+
+00:00:04.030 --> 00:00:07.560
+It's just our compiling of the model with Adam optimizer
+
+00:00:07.560 --> 00:00:12.780
+sparse categorical cross entropy for loss and accuracy as our metric.
+
+00:00:12.780 --> 00:00:15.630
+Now I only ended up training this for two epics,
+
+00:00:15.630 --> 00:00:17.205
+and as you can see below,
+
+00:00:17.205 --> 00:00:20.070
+it already got to a train accuracy of
+
+00:00:20.070 --> 00:00:23.925
+almost 99 percent and validation accuracy also of nearly 99 percent,
+
+00:00:23.925 --> 00:00:25.770
+which is pretty amazing.
+
+00:00:25.770 --> 00:00:27.840
+This, using a pre-trained model,
+
+00:00:27.840 --> 00:00:32.670
+really made a huge difference in what our model accuracy was.
+
+00:00:32.670 --> 00:00:36.255
+Here below we can check out our predictions
+
+00:00:36.255 --> 00:00:40.230
+and see that we actually got them all right. That's great.
+
+00:00:40.230 --> 00:00:45.115
+99 percent accuracy, that means we're going to get almost everything correct.
+
+00:00:45.115 --> 00:00:49.190
+So I encourage you here before you hop along to the project to go
+
+00:00:49.190 --> 00:00:53.060
+ahead and play around a little bit more in the GPU workspace if you'd like,
+
+00:00:53.060 --> 00:00:56.980
+you can try different datasets, different networks, e.t.c.
+
+00:00:56.980 --> 00:00:59.915
+Remember, you do have a certain amount of GPU hours,
+
+00:00:59.915 --> 00:01:01.700
+so if you're just writing code,
+
+00:01:01.700 --> 00:01:04.700
+I might suggest that you make sure you save your Notebook,
+
+00:01:04.700 --> 00:01:08.130
+but then disable the GPU until you're ready for training.
+
+00:01:08.130 --> 00:01:11.625
+Again, make sure you save it before re-enabling the GPU and
+
+00:01:11.625 --> 00:01:15.665
+then you can train quickly with the GPU acceleration.
+
+00:01:15.665 --> 00:01:20.580
+So great, I hope you enjoyed this lesson and best of luck on the project.
+(客服wx：udacity6）
