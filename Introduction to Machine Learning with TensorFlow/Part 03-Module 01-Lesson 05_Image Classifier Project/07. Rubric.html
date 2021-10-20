@@ -1,0 +1,558 @@
+<!-- udacimak v1.4.4 -->
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+  <title>
+   Rubric
+  </title>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="../assets/css/plyr.css" rel="stylesheet"/>
+  <link href="../assets/css/katex.min.css" rel="stylesheet"/>
+  <link href="../assets/css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+  <link href="../assets/css/styles.css" rel="stylesheet"/>
+  <link href="../assets/img/udacimak.png" rel="shortcut icon" type="image/png">
+  </link>
+ </head>
+ <body>
+  <div class="wrapper">
+   <nav id="sidebar">
+    <div class="sidebar-header">
+     <h3>
+      Image Classifier Project
+     </h3>
+    </div>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled components">
+     <li class="">
+      <a href="01. Project Intro.html">
+       01. Project Intro
+      </a>
+     </li>
+     <li class="">
+      <a href="02. Introduction to GPU Workspaces.html">
+       02. Introduction to GPU Workspaces
+      </a>
+     </li>
+     <li class="">
+      <a href="03. Image Classifier - Part 1 - Development.html">
+       03. Image Classifier - Part 1 - Development
+      </a>
+     </li>
+     <li class="">
+      <a href="04. Image Classifier - Part 1 - Workspace.html">
+       04. Image Classifier - Part 1 - Workspace
+      </a>
+     </li>
+     <li class="">
+      <a href="05. Image Classifier - Part 2 - Command Line App.html">
+       05. Image Classifier - Part 2 - Command Line App
+      </a>
+     </li>
+     <li class="">
+      <a href="06. Image Classifier - Part 2 - Workspace.html">
+       06. Image Classifier - Part 2 - Workspace
+      </a>
+     </li>
+     <li class="">
+      <a href="07. Rubric.html">
+       07. Rubric
+      </a>
+     </li>
+     <li class="">
+      <a href="Project Description - Create Your Own Image Classifier - TensorFlow.html">
+       Project Description - Create Your Own Image Classifier - TensorFlow
+      </a>
+     </li>
+     <li class="">
+      <a href="Project Rubric - Create Your Own Image Classifier - TensorFlow.html">
+       Project Rubric - Create Your Own Image Classifier - TensorFlow
+      </a>
+     </li>
+    </ul>
+    <ul class="sidebar-list list-unstyled CTAs">
+     <li>
+      <a class="article" href="../index.html">
+       Back to Home
+      </a>
+     </li>
+    </ul>
+   </nav>
+   <div id="content">
+    <header class="container-fluild header">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <div class="align-items-middle">
+         <button class="btn btn-toggle-sidebar" id="sidebarCollapse" type="button">
+          <div>
+          </div>
+          <div>
+          </div>
+          <div>
+          </div>
+         </button>
+         <h1 style="display: inline-block">
+          07. Rubric
+         </h1>
+        </div>
+       </div>
+      </div>
+     </div>
+    </header>
+    <main class="container">
+     <div class="row">
+      <div class="col-12">
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <p>
+          You can find the project rubric
+          <a href="https://review.udacity.com/#!/rubrics/2697/view" rel="noopener noreferrer" target="_blank">
+           here
+          </a>
+          . We've provided it below as well.
+         </p>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h3 id="files-submitted">
+          Files submitted
+         </h3>
+         <table>
+          <thead>
+           <tr>
+            <th id="**criteria**">
+             <strong>
+              Criteria
+             </strong>
+            </th>
+            <th id="**specification**">
+             <strong>
+              Specification
+             </strong>
+            </th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>
+             Submission Files
+            </td>
+            <td>
+             The submission includes all required files.
+            </td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h3 id="part-1---development-notebook">
+          Part 1 - Development Notebook
+         </h3>
+         <table>
+          <thead>
+           <tr>
+            <th id="**criteria**">
+             <strong>
+              Criteria
+             </strong>
+            </th>
+            <th id="**specification**">
+             <strong>
+              Specification
+             </strong>
+            </th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>
+             Package Imports
+            </td>
+            <td>
+             All the necessary packages and modules are imported at the beginning of the notebook.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Data Loading
+            </td>
+            <td>
+             The Oxford Flowers 102 dataset is loaded using TensorFlow Datasets.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Data Splits
+            </td>
+            <td>
+             The dataset is divided into a training set, a validation set, and a test set.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Dataset Info
+            </td>
+            <td>
+             The number of examples in each set and the number classes in the dataset are extracted from the dataset info.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Dataset Images
+            </td>
+            <td>
+             The shape of the first 3 images in the training set is printed using a
+             <code>
+              for
+             </code>
+             loop and the
+             <code>
+              take()
+             </code>
+             method.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Plot Image
+            </td>
+            <td>
+             The first image from the training set is plotted with the title of the plot corresponding to the image label.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Label Mapping
+            </td>
+            <td>
+             The first image from the training set is plotted with the title of the plot corresponding to the class name using label mapping from the JSON file.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Data Normalization
+            </td>
+            <td>
+             The training, validation, and testing data is appropriately resized and normalized.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Data Pipeline
+            </td>
+            <td>
+             A pipeline for each set is constructed with the necessary transformations.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Data Batching
+            </td>
+            <td>
+             The pipeline for each set should return batches of images.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Pre-trained Network
+            </td>
+            <td>
+             The pre-trained network, MobileNet, is loaded using TensorFlow Hub and its parameters are frozen.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Feedforward Classifier
+            </td>
+            <td>
+             A new neural network is created using transfer learning. The number of neurons in the output layer should correspond to the number of classes of the dataset.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Training the Network
+            </td>
+            <td>
+             The model is configured for training using the
+             <code>
+              compile
+             </code>
+             method with appropriate parameters. The model is trained using the
+             <code>
+              fit
+             </code>
+             method and incorporating the validation set.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Validation Loss and Accuracy
+            </td>
+            <td>
+             The loss and accuracy values achieved during training for the training and validation set are plotted using the
+             <code>
+              history
+             </code>
+             dictionary return by the
+             <code>
+              fit
+             </code>
+             method.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Testing Accuracy
+            </td>
+            <td>
+             The network's accuracy is measured on the test data.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Saving the Model
+            </td>
+            <td>
+             The trained model is saved as a Keras model (i.e. saved as an HDF5 file with extension
+             <code>
+              .h5
+             </code>
+             ).
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Loading Model
+            </td>
+            <td>
+             The saved Keras model is successfully loaded.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Image Processing
+            </td>
+            <td>
+             The
+             <code>
+              process_image
+             </code>
+             function successfully normalizes and resizes the input image. The image returned by the
+             <code>
+              process_image
+             </code>
+             function should be a NumPy array with shape
+             <code>
+              (224, 224, 3)
+             </code>
+             .
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Inference
+            </td>
+            <td>
+             The
+             <code>
+              predict
+             </code>
+             function successfully takes the path to an image and a saved model, and then returns the top K most probably classes for that image.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Sanity Check
+            </td>
+            <td>
+             A
+             <code>
+              matplotlib
+             </code>
+             figure is created displaying an image and its associated top 5 most probable classes with actual flower names.
+            </td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+       <div class="ud-atom">
+        <h3>
+        </h3>
+        <div>
+         <h2 id="part-2---command-line-application">
+          Part 2 - Command Line Application
+         </h2>
+         <table>
+          <thead>
+           <tr>
+            <th id="**criteria**">
+             <strong>
+              Criteria
+             </strong>
+            </th>
+            <th id="**specification**">
+             <strong>
+              Specification
+             </strong>
+            </th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>
+             Predicting Classes
+            </td>
+            <td>
+             The
+             <code>
+              predict.py
+             </code>
+             script successfully reads in an image and a saved Keras model and then prints the most likely image class and it's associated probability.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Top K Classes
+            </td>
+            <td>
+             The
+             <code>
+              predict.py
+             </code>
+             script allows users to print out the top K classes along with associated probabilities.
+            </td>
+           </tr>
+           <tr>
+            <td>
+             Displaying Class Names
+            </td>
+            <td>
+             The
+             <code>
+              predict.py
+             </code>
+             script allows users to load a JSON file that maps the class values to other category names.
+            </td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+       </div>
+       <div class="divider">
+       </div>
+      </div>
+      <div class="col-12">
+       <p class="text-right">
+       </p>
+      </div>
+     </div>
+    </main>
+    <footer class="footer">
+     <div class="container">
+      <div class="row">
+       <div class="col-12">
+        <p class="text-center">
+         udacity2.0 If you need the newest courses Plase add me wechat: udacity6
+        </p>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script src="../assets/js/jquery-3.3.1.min.js">
+  </script>
+  <script src="../assets/js/plyr.polyfilled.min.js">
+  </script>
+  <script src="../assets/js/bootstrap.min.js">
+  </script>
+  <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js">
+  </script>
+  <script src="../assets/js/katex.min.js">
+  </script>
+  <script>
+   // Initialize Plyr video players
+    const players = Array.from(document.querySelectorAll('video')).map(p => new Plyr(p));
+
+    // render math equations
+    let elMath = document.getElementsByClassName('mathquill');
+    for (let i = 0, len = elMath.length; i < len; i += 1) {
+      const el = elMath[i];
+
+      katex.render(el.textContent, el, {
+        throwOnError: false
+      });
+    }
+
+    // this hack will make sure Bootstrap tabs work when using Handlebars
+    if ($('#question-tabs').length && $('#user-answer-tabs').length) {
+      $("#question-tabs a.nav-link").on('click', function () {
+        $("#question-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+      $("#user-answer-tabs a.nav-link").on('click', function () {
+        $("#user-answer-tab-contents .tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    } else {
+      $("a.nav-link").on('click', function () {
+        $(".tab-pane").hide();
+        $($(this).attr("href")).show();
+      });
+    }
+
+    // side bar events
+    $(document).ready(function () {
+      $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+      });
+
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      // scroll to first video on page loading
+      if ($('video').length) {
+        $('html,body').animate({ scrollTop: $('div.plyr').prev().offset().top});
+      }
+
+      // auto play first video: this may not work with chrome/safari due to autoplay policy
+      if (players && players.length > 0) {
+        players[0].play();
+      }
+
+      // scroll sidebar to current concept
+      const currentInSideBar = $( "ul.sidebar-list.components li a:contains('07. Rubric')" )
+      currentInSideBar.css( "text-decoration", "underline" );
+      $("#sidebar").mCustomScrollbar('scrollTo', currentInSideBar);
+    });
+  </script>
+ </body>
+</html>
